@@ -33,7 +33,7 @@ jobs:
                   health,search=replies
                   assert health.get('ok') is True
                   assert health.get('name')=='MarcoSearch Workers'
-                  assert health.get('version')=='1.0.5', 'Worker updated build not deployed yet'
+                  assert health.get('version')=='1.2.0', 'Worker updated build not deployed yet'
                   assert search.get('code')==1, 'search response not successful'
                   assert isinstance(search.get('list'),list)
                   assert search.get('search_info',{}).get('scanned',0)>=1, 'no upstream sources scanned'
