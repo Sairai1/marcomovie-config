@@ -14,7 +14,9 @@
         "豚鼠1",
         "恶魔试验",
         "Devil's Experiment",
-        "Akuma no Jikken"
+        "Akuma no Jikken",
+        "Guinea Pig 1: Devil's Experiment",
+        "豚鼠系列之1：恶魔实验"
       ]
     },
     {
@@ -27,7 +29,9 @@
         "豚鼠2：血肉之花",
         "豚鼠2",
         "Flower of Flesh and Blood",
-        "Chiniku no Hana"
+        "Chiniku no Hana",
+        "Guinea Pig Part 2: Flower of Flesh and Blood",
+        "豚鼠系列之2：血肉之花"
       ]
     },
     {
@@ -42,7 +46,9 @@
         "豚鼠3",
         "He Never Dies",
         "The Man Who Never Dies",
-        "Senritsu Shinanai Otoko"
+        "Senritsu Shinanai Otoko",
+        "Guinea Pig Part 3: He Never Dies",
+        "豚鼠系列之3：他不会死"
       ]
     },
     {
@@ -56,7 +62,11 @@
         "下水道人鱼",
         "豚鼠4",
         "Mermaid in a Manhole",
-        "Manhole no Naka no Ningyo"
+        "Manhole no Naka no Ningyo",
+        "豚鼠系列之5：下水道的美人鱼",
+        "豚鼠5：下水道的美人鱼",
+        "Guinea Pig 5: Mermaid in a Manhole",
+        "Guinea Pig 6: Mermaid in a Manhole"
       ]
     },
     {
@@ -70,7 +80,11 @@
         "豚鼠5",
         "Android of Notre Dame",
         "Androids of Notre Dame",
-        "Notorudamu no Andoroido"
+        "Notorudamu no Andoroido",
+        "豚鼠系列之6：圣母机器人",
+        "豚鼠6：圣母机器人",
+        "Guinea Pig 5: Android of Notre Dame",
+        "Guinea Pig 6: Android of Notre Dame"
       ]
     },
     {
@@ -85,7 +99,11 @@
         "豚鼠6",
         "Devil Woman Doctor",
         "Devil Doctor Woman",
-        "Pita no Akuma no Joi-san"
+        "Pita no Akuma no Joi-san",
+        "豚鼠系列之4：恶魔女医生",
+        "豚鼠4：恶魔女医生",
+        "Guinea Pig 4: Devil Woman Doctor",
+        "Guinea Pig 6: Devil Woman Doctor"
       ],
       "year_note": "不同资料使用 1986、1990 年及不同编号，请优先按片名匹配"
     }
@@ -108,5 +126,6 @@
     }
   ],
   "related_not_main_series": "American Guinea Pig 是美版衍生系列，不属于上述六部日本原创正片。",
-  "note": "这份文件是电影条目和检索别名目录，不是 TVBox 播放源；导入 all.json 不会自动增加未被第三方资源站收录的电影。"
+  "note": "这份文件是电影条目和检索别名目录，不是 TVBox 播放源；导入 all.json 不会自动增加未被第三方资源站收录的电影。",
+  "numbering_note": "原发行版本、影片数据库与合辑常采用不同的第4/5/6部编号。按电影原名辨认，不应把单独的豚鼠4/5/6当作唯一编号。搜索别名保留多个常见带完整片名的编号版本；命中不代表可播放。"
 }
