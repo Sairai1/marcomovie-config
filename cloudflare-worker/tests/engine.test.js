@@ -313,10 +313,11 @@ test("Optional Watchmode adapter never calls unconfigured service or leaks key t
  const absent=await watchmodeSearch("Matrix","");
  assert.equal(absent.configured,false);
  let calls=0;
- const mocked=async url=>{
+ const mocked=async (url,options)=>{
    calls++;
    const u=new URL(url);
-   assert.equal(u.searchParams.get("apiKey"),"my-secret-key");
+   assert.equal(u.searchParams.has("apiKey"),false);
+   assert.equal(options.headers["X-API-Key"],"my-secret-key");
    if(u.pathname.endsWith("/search/"))return ok({title_results:[
      {id:10,name:"The Matrix",type:"movie",year:1999},
      {id:11,name:"An unrelated show",type:"tv_series"}]});
