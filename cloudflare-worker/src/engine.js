@@ -3,6 +3,7 @@
  * Dynamic federated CMS catalog search; no video hosting or media proxy.
  * Browser/Workers Web APIs only. No Node built-ins.
  */
+import {snapshotSites,snapshotFilms} from "./snapshot.js";
 const CONFIG_URL="https://raw.githubusercontent.com/Sairai1/marcomovie-config/main/all.json";
 const CATALOG_URL="https://raw.githubusercontent.com/Sairai1/marcomovie-config/main/catalogs/cult-films.json";
 let configMemo=null;
@@ -41,12 +42,21 @@ export async function loadData(fetcher=fetch,options={}){
   if(!options.noCache&&configMemo&&configMemo.expire>now)return configMemo.data;
   const configUrl=options.configUrl||CONFIG_URL;
   const catalogUrl=options.catalogUrl||CATALOG_URL;
-  const [raw,catalog]=await Promise.all([
-    fetchText(configUrl,fetcher,3500,250000),
-    fetchText(catalogUrl,fetcher,3500,250000).catch(()=>"{\"films\":[]}")
-  ]);
-  const cfg=JSON.parse(raw);
-  const films=JSON.parse(catalog)?.films||[];
+  let cfg,films,configSource="live";
+  try{
+    const [raw,catalog]=await Promise.all([
+      fetchText(configUrl,fetcher,3500,250000),
+      fetchText(catalogUrl,fetcher,3500,250000).catch(()=>"{\"films\":[]}")
+    ]);
+    cfg=JSON.parse(raw);
+    if(!Array.isArray(cfg.sites))throw new Error("invalid CMS sources");
+    films=JSON.parse(catalog)?.films||snapshotFilms;
+  }catch(err){
+    if(options.noCache)throw err; // injectable tests validate live-path failures.
+    cfg={sites:snapshotSites};
+    films=snapshotFilms;
+    configSource="bundled_fallback";
+  }
   const sites=(cfg.sites||[]).filter(safeSite);
   const aliases=new Map(),canonical=new Map();
   for(const f of films){
@@ -57,7 +67,7 @@ export async function loadData(fetcher=fetch,options={}){
       if(key&&!canonical.has(key))canonical.set(key,f.id);
     }
   }
-  const data={sites,aliases,canonical};
+  const data={sites,aliases,canonical,configSource};
   if(!options.noCache)configMemo={data,expire:now+180000};
   return data;
 }
