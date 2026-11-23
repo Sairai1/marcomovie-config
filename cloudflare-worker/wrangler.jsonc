@@ -6,6 +6,8 @@
   "vars": {
     "SEARCH_SOURCES": "16",
     "SEARCH_CONCURRENCY": "4",
-    "UPSTREAM_TIMEOUT_MS": "2400"
+    "UPSTREAM_TIMEOUT_MS": "2400",
+    "DETAIL_BACKUP_GRACE_MS": "260",
+    "DETAIL_TIMEOUT_MS": "3400"
   }
 }
