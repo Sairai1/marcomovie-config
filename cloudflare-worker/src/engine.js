@@ -303,11 +303,13 @@ function playableLines(item){
   return entries;
 }
 function combineDetails(obtained,encoded){
-  const usable=obtained.filter(Boolean);
+  const usable=obtained.filter(Boolean)
+    // Prefer playable rows, then the provider whose detail response arrived
+    // first. This also puts its stream first in the iOS playback source list.
+    .sort((a,b)=>Number(playableLines(b.item).length>0)-Number(playableLines(a.item).length>0)||
+      (a.latencyMs??9999)-(b.latencyMs??9999));
   if(!usable.length)return [];
-  // Playable response owns title/metadata; never choose an empty-feed response
-  // in preference to an already usable source.
-  const primary=usable.find(x=>playableLines(x.item).length)||usable[0];
+  const primary=usable[0];
   const lines=[];
   const keys=new Set();
   for(const {site,item} of usable){
@@ -364,7 +366,7 @@ export async function details(encoded,data,fetcher=fetch,options={}){
       const chosen=parsed.find(item=>item.vod_id===id)||
         (parsed.length===1?parsed[0]:null);
       if(chosen&&!closed){
-        const entry={site,item:chosen};
+        const entry={site,item:chosen,latencyMs:Date.now()-start};
         obtained[i]=entry;
         usable=playableLines(chosen).length>0;
         if(usable&&!hasPlayback){hasPlayback=true;firstReady();}
