@@ -1,0 +1,904 @@
+{
+  "spider": "",
+  "sites": [
+    {
+      "key": "vod_360",
+      "name": "電影・劇集・動漫｜360資源",
+      "type": 1,
+      "api": "https://360zy.com/api.php/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    },
+    {
+      "key": "vod_ry",
+      "name": "電影・劇集｜如意影視",
+      "type": 1,
+      "api": "https://cj.rycjapi.com/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    },
+    {
+      "key": "vod_zy",
+      "name": "電影・劇集｜量子影視",
+      "type": 1,
+      "api": "https://cj.lziapi.com/api.php/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    },
+    {
+      "key": "vod_ff",
+      "name": "電影・劇集｜非凡影視",
+      "type": 1,
+      "api": "https://api.ffzyapi.com/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    },
+    {
+      "key": "vod_wsyzy",
+      "name": "🎬 電影｜無水印資源・4K分類",
+      "type": 1,
+      "api": "https://api.wsyzy.net/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 1,
+      "categories": [
+        "4K电影",
+        "动作片",
+        "喜剧片",
+        "科幻片",
+        "恐怖片",
+        "爱情片",
+        "剧情片",
+        "战争片",
+        "记录片",
+        "邵氏电影",
+        "动画片",
+        "Netflix自制剧"
+      ]
+    },
+    {
+      "key": "vod_tiankong",
+      "name": "🎬 電影｜天空資源・電影大全",
+      "type": 1,
+      "api": "https://api.tiankongapi.com/api.php/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 1,
+      "categories": [
+        "电影",
+        "动作片",
+        "喜剧片",
+        "爱情片",
+        "科幻片",
+        "恐怖片",
+        "剧情片",
+        "战争片",
+        "纪录片",
+        "动画片",
+        "电视剧",
+        "综艺",
+        "动漫"
+      ]
+    },
+    {
+      "key": "vod_kuaifan",
+      "name": "🎬 電影｜快帆資源・華語海外",
+      "type": 1,
+      "api": "https://api.kuaifan.tv/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 0
+    },
+    {
+      "key": "vod_ikun",
+      "name": "🎬 電影｜iKun資源・動作劇情",
+      "type": 1,
+      "api": "https://www.ikunzy.com/api.php/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 0
+    },
+    {
+      "key": "vod_taopian",
+      "name": "🎬 電影｜淘片資源・多類型",
+      "type": 1,
+      "api": "https://taopianapi.com/cjapi/mc/vod/json.html",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 0
+    },
+    {
+      "key": "vod_39kan",
+      "name": "🎬 電影｜39影視・補充片庫",
+      "type": 1,
+      "api": "https://www.39kan.com/api.php/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 0
+    },
+    {
+      "key": "vod_vodimg",
+      "name": "🎬 電影｜影圖資源・補充片庫",
+      "type": 1,
+      "api": "https://cj.vodimg.top/api.php/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 0
+    },
+    {
+      "key": "vod_huaweiba",
+      "name": "🎬 電影｜華為吧・另一路線",
+      "type": 1,
+      "api": "https://huaweiba.live/api.php/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 0
+    },
+    {
+      "key": "vod_guangsu",
+      "name": "🎬 電影｜光速資源・備選",
+      "type": 1,
+      "api": "https://api.guangsuapi.com/api.php/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 0
+    },
+    {
+      "key": "vod_feisu_m3u8",
+      "name": "🎬 電影｜飛速・M3U8備用",
+      "type": 1,
+      "api": "https://m3u8.feisuzyapi.com/api.php/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 0
+    },
+    {
+      "key": "vod_wujin_me",
+      "name": "🎬 電影｜無盡・備用域名",
+      "type": 1,
+      "api": "https://api.wujinapi.me/api.php/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 0
+    },
+    {
+      "key": "vod_bf_app",
+      "name": "🎬 電影｜暴風・備用接口",
+      "type": 1,
+      "api": "https://app.bfzyapi.com/api.php/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 0
+    },
+    {
+      "key": "vod_js",
+      "name": "動漫・綜藝｜極速資源",
+      "type": 1,
+      "api": "https://jszyapi.com/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    },
+    {
+      "key": "vod_suoni",
+      "name": "動漫・電影｜索尼資源",
+      "type": 1,
+      "api": "https://suoniapi.com/api.php/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    },
+    {
+      "key": "vod_yinghua",
+      "name": "日本動漫｜櫻花資源",
+      "type": 1,
+      "api": "https://m3u8.apiyhzy.com/api.php/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    },
+    {
+      "key": "vod_hongniu",
+      "name": "電影・影集｜紅牛資源",
+      "type": 1,
+      "api": "https://www.hongniuzy2.com/api.php/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    },
+    {
+      "key": "vod_wolong",
+      "name": "電影・劇集｜臥龍資源",
+      "type": 1,
+      "api": "https://collect.wolongzyw.com/api.php/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    },
+    {
+      "key": "vod_wujin",
+      "name": "電影・劇集｜無盡資源",
+      "type": 1,
+      "api": "https://api.wujinapi.com/api.php/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    },
+    {
+      "key": "vod_jinying",
+      "name": "電影・影集｜金鷹資源",
+      "type": 1,
+      "api": "https://jinyingzy.com/api.php/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    },
+    {
+      "key": "vod_ww",
+      "name": "電影・影集｜旺旺資源",
+      "type": 1,
+      "api": "https://api.wwzy.tv/api.php/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    },
+    {
+      "key": "vod_bf",
+      "name": "電影・劇集｜暴風資源",
+      "type": 1,
+      "api": "https://bfzyapi.com/api.php/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    },
+    {
+      "key": "vod_dytt",
+      "name": "電影・劇集｜電影天堂",
+      "type": 1,
+      "api": "https://caiji.dyttzyapi.com/api.php/provide/vod/?from=dyttm3u8",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    },
+    {
+      "key": "vod_kc",
+      "name": "電影・劇集｜快車資源",
+      "type": 1,
+      "api": "https://caiji.kczyapi.com/api.php/provide/vod/from/kcm3u8/",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    },
+    {
+      "key": "vod_md",
+      "name": "電影・劇集｜墨斗資源",
+      "type": 1,
+      "api": "https://www.mdzyapi.com/api.php/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    },
+    {
+      "key": "vod_xinlang",
+      "name": "動漫・綜藝｜新浪資源",
+      "type": 1,
+      "api": "https://api.xinlangapi.com/xinlangapi.php/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    },
+    {
+      "key": "vod_douban",
+      "name": "電影・動漫｜豆瓣資源",
+      "type": 1,
+      "api": "https://caiji.dbzy.tv/api.php/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    },
+    {
+      "key": "vod_zyh",
+      "name": "劇集・電影｜華為吧",
+      "type": 1,
+      "api": "https://hw8.live/api.php/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    },
+    {
+      "key": "vod_uku",
+      "name": "影集・綜藝｜U酷資源",
+      "type": 1,
+      "api": "https://api.ukuapi.com/api.php/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    },
+    {
+      "key": "vod_haohua",
+      "name": "電影・影集｜豪華資源",
+      "type": 1,
+      "api": "https://www.haohuazy.com/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 0
+    },
+    {
+      "key": "vod_sijiu",
+      "name": "電影・劇集｜四九資源",
+      "type": 1,
+      "api": "https://49zy1.com/api.php/provide/vod/?ac=list",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 0
+    },
+    {
+      "key": "vod_qihu",
+      "name": "電影・動漫｜奇虎資源",
+      "type": 1,
+      "api": "https://caiji.qhzyapi.com/api.php/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 0
+    },
+    {
+      "key": "vod_keke",
+      "name": "電影・影集｜可可資源",
+      "type": 1,
+      "api": "https://kekezy1.com/api.php/provide/vod/?ac=list",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 0
+    },
+    {
+      "key": "vod_huya",
+      "name": "影視・動漫｜虎牙資源",
+      "type": 1,
+      "api": "https://www.huyaapi.com/api.php/provide/vod/from/hym3u8",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 0
+    },
+    {
+      "key": "vod_feisu",
+      "name": "電影・劇集｜飛速資源",
+      "type": 1,
+      "api": "https://www.feisuzyapi.com/api.php/provide/vod/?ac=list",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 0
+    },
+    {
+      "key": "vod_huohu",
+      "name": "電影・影集｜火狐資源",
+      "type": 1,
+      "api": "https://hhzyapi.com/api.php/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 0
+    },
+    {
+      "key": "vod_baidu",
+      "name": "影視・動漫・綜藝｜百度資源",
+      "type": 1,
+      "api": "https://api.apibdzy.com/api.php/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 0
+    },
+    {
+      "key": "vod_jinchan",
+      "name": "電影・劇集｜金蟬資源",
+      "type": 1,
+      "api": "https://zy.jinchancaiji.com/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 0
+    },
+    {
+      "key": "vod_xiaomianyang",
+      "name": "電影・劇集｜小綿羊資源",
+      "type": 1,
+      "api": "https://vs.okcdn100.top/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 0
+    },
+    {
+      "key": "vod_qukan",
+      "name": "電影・劇集｜趣看資源",
+      "type": 1,
+      "api": "https://qkmp4.cn/api.php/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 0
+    },
+    {
+      "key": "vod_hongniu3",
+      "name": "電影・影集｜紅牛備用",
+      "type": 1,
+      "api": "https://www.hongniuzy3.com/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 0
+    },
+    {
+      "key": "vod_yinghua2",
+      "name": "日本動漫｜櫻花備用",
+      "type": 1,
+      "api": "https://api.apiyhzy.com/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 0
+    },
+    {
+      "key": "vod_ffzy2",
+      "name": "電影・劇集｜非凡備用",
+      "type": 1,
+      "api": "https://cj.ffzyapi.com/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 0
+    },
+    {
+      "key": "vod_lzzy2",
+      "name": "電影・劇集｜量子備用",
+      "type": 1,
+      "api": "https://lzizy1.com/api.php/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 0
+    },
+    {
+      "key": "vod_wolong2",
+      "name": "電影・劇集｜臥龍備用",
+      "type": 1,
+      "api": "https://wolongzyw.com/api.php/provide/vod/?ac=list",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 0
+    },
+    {
+      "key": "vod_musicmv",
+      "name": "音樂・MV｜公開影音聚合",
+      "type": 1,
+      "api": "https://mv.wogg.link/mv/vod",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 0
+    }
+  ],
+  "lives": [
+    {
+      "name": "全球｜公開電視總表",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/index.m3u"
+    },
+    {
+      "name": "全球｜依國家分組",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/index.country.m3u"
+    },
+    {
+      "name": "全球｜依類型分組",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/index.category.m3u"
+    },
+    {
+      "name": "全球｜Free-TV 精選",
+      "type": 0,
+      "url": "https://raw.githubusercontent.com/Free-TV/IPTV/master/playlist.m3u8"
+    },
+    {
+      "name": "台灣｜公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/tw.m3u"
+    },
+    {
+      "name": "香港｜公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/hk.m3u"
+    },
+    {
+      "name": "澳門｜公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/mo.m3u"
+    },
+    {
+      "name": "中國大陸｜公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/cn.m3u"
+    },
+    {
+      "name": "日本｜公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/jp.m3u"
+    },
+    {
+      "name": "韓國｜公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/kr.m3u"
+    },
+    {
+      "name": "新加坡｜公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/sg.m3u"
+    },
+    {
+      "name": "馬來西亞｜公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/my.m3u"
+    },
+    {
+      "name": "泰國｜公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/th.m3u"
+    },
+    {
+      "name": "印度｜公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/in.m3u"
+    },
+    {
+      "name": "美國｜公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/us.m3u"
+    },
+    {
+      "name": "加拿大｜公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/ca.m3u"
+    },
+    {
+      "name": "英國｜公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/uk.m3u"
+    },
+    {
+      "name": "法國｜公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/fr.m3u"
+    },
+    {
+      "name": "德國｜公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/de.m3u"
+    },
+    {
+      "name": "義大利｜公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/it.m3u"
+    },
+    {
+      "name": "西班牙｜公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/es.m3u"
+    },
+    {
+      "name": "澳洲｜公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/au.m3u"
+    },
+    {
+      "name": "紐西蘭｜公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/nz.m3u"
+    },
+    {
+      "name": "巴西｜公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/br.m3u"
+    },
+    {
+      "name": "墨西哥｜公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/mx.m3u"
+    },
+    {
+      "name": "阿聯酋｜公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/ae.m3u"
+    },
+    {
+      "name": "南非｜公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/za.m3u"
+    },
+    {
+      "name": "專題｜電影輪播",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/categories/movies.m3u"
+    },
+    {
+      "name": "專題｜電視劇輪播",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/categories/series.m3u"
+    },
+    {
+      "name": "專題｜動畫動漫",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/categories/animation.m3u"
+    },
+    {
+      "name": "專題｜兒童少兒",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/categories/kids.m3u"
+    },
+    {
+      "name": "專題｜新聞",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/categories/news.m3u"
+    },
+    {
+      "name": "專題｜紀錄片",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/categories/documentary.m3u"
+    },
+    {
+      "name": "專題｜體育",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/categories/sports.m3u"
+    },
+    {
+      "name": "專題｜綜合娛樂",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/categories/entertainment.m3u"
+    },
+    {
+      "name": "專題｜音樂",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/categories/music.m3u"
+    },
+    {
+      "name": "國家｜印尼 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/id.m3u"
+    },
+    {
+      "name": "國家｜越南 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/vn.m3u"
+    },
+    {
+      "name": "國家｜菲律賓 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/ph.m3u"
+    },
+    {
+      "name": "國家｜柬埔寨 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/kh.m3u"
+    },
+    {
+      "name": "國家｜寮國 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/la.m3u"
+    },
+    {
+      "name": "國家｜緬甸 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/mm.m3u"
+    },
+    {
+      "name": "國家｜巴基斯坦 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/pk.m3u"
+    },
+    {
+      "name": "國家｜孟加拉 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/bd.m3u"
+    },
+    {
+      "name": "國家｜斯里蘭卡 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/lk.m3u"
+    },
+    {
+      "name": "國家｜土耳其 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/tr.m3u"
+    },
+    {
+      "name": "國家｜沙烏地阿拉伯 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/sa.m3u"
+    },
+    {
+      "name": "國家｜卡達 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/qa.m3u"
+    },
+    {
+      "name": "國家｜以色列 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/il.m3u"
+    },
+    {
+      "name": "國家｜荷蘭 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/nl.m3u"
+    },
+    {
+      "name": "國家｜葡萄牙 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/pt.m3u"
+    },
+    {
+      "name": "國家｜波蘭 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/pl.m3u"
+    },
+    {
+      "name": "國家｜瑞典 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/se.m3u"
+    },
+    {
+      "name": "國家｜挪威 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/no.m3u"
+    },
+    {
+      "name": "國家｜丹麥 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/dk.m3u"
+    },
+    {
+      "name": "國家｜芬蘭 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/fi.m3u"
+    },
+    {
+      "name": "國家｜希臘 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/gr.m3u"
+    },
+    {
+      "name": "國家｜阿根廷 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/ar.m3u"
+    },
+    {
+      "name": "國家｜智利 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/cl.m3u"
+    },
+    {
+      "name": "國家｜哥倫比亞 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/co.m3u"
+    },
+    {
+      "name": "國家｜秘魯 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/pe.m3u"
+    },
+    {
+      "name": "國家｜埃及 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/eg.m3u"
+    },
+    {
+      "name": "國家｜奈及利亞 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/ng.m3u"
+    },
+    {
+      "name": "國家｜肯亞 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/ke.m3u"
+    },
+    {
+      "name": "語言｜華語頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/languages/zho.m3u"
+    },
+    {
+      "name": "語言｜粵語頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/languages/yue.m3u"
+    },
+    {
+      "name": "語言｜英語頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/languages/eng.m3u"
+    },
+    {
+      "name": "語言｜日語頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/languages/jpn.m3u"
+    },
+    {
+      "name": "語言｜韓語頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/languages/kor.m3u"
+    },
+    {
+      "name": "語言｜西班牙語頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/languages/spa.m3u"
+    },
+    {
+      "name": "語言｜葡萄牙語頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/languages/por.m3u"
+    },
+    {
+      "name": "語言｜阿拉伯語頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/languages/ara.m3u"
+    },
+    {
+      "name": "語言｜俄語頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/languages/rus.m3u"
+    },
+    {
+      "name": "語言｜印尼語頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/languages/ind.m3u"
+    },
+    {
+      "name": "語言｜越南語頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/languages/vie.m3u"
+    },
+    {
+      "name": "專題｜喜劇",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/categories/comedy.m3u"
+    },
+    {
+      "name": "專題｜教育",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/categories/education.m3u"
+    },
+    {
+      "name": "專題｜科學",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/categories/science.m3u"
+    },
+    {
+      "name": "專題｜旅遊",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/categories/travel.m3u"
+    },
+    {
+      "name": "專題｜美食烹飪",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/categories/cooking.m3u"
+    },
+    {
+      "name": "專題｜親子家庭",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/categories/family.m3u"
+    },
+    {
+      "name": "專題｜文化藝術",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/categories/culture.m3u"
+    },
+    {
+      "name": "專題｜商業財經",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/categories/business.m3u"
+    },
+    {
+      "name": "專題｜氣象天氣",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/categories/weather.m3u"
+    },
+    {
+      "name": "全球｜依語言分組",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/index.language.m3u"
+    }
+  ],
+  "parses": [],
+  "flags": []
+}
