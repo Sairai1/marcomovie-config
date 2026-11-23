@@ -1,0 +1,56 @@
+name: Verify V2 multi-engine subscription
+on:
+  push:
+    paths:
+      - '.github/workflows/verify-multi-engines-config.yml'
+  workflow_dispatch:
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - name: Validate 56 sites and 3 unique shards plus discovery
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json,urllib.request,urllib.parse,time
+          base='https://marcomovie-config.guochuwei0913.workers.dev'
+          raw='https://raw.githubusercontent.com/Sairai1/marcomovie-config/main/all.json'
+          def fetch(url,timeout=28):
+            r=urllib.request.Request(url,headers={'User-Agent':'MarcoSearch-ConfigTest/1.1','Accept':'application/json'})
+            with urllib.request.urlopen(r,timeout=timeout) as response:
+              return json.loads(response.read(450000).decode('utf-8'))
+          cfg=fetch(raw)
+          sites=cfg['sites']
+          keys={s['key'] for s in sites}
+          assert len(sites)==56 and len(cfg['lives'])==85,(len(sites),len(cfg['lives']))
+          assert len(keys)==len(sites)
+          needed={'marco_search','marco_search_1','marco_search_2','marco_search_3','marco_discover'}
+          assert needed.issubset(keys)
+          assert all(x['api'].startswith(base) for x in sites if x['key'] in needed)
+          print('CONFIG verified:',len(sites),'sites,',len(cfg['lives']),'live lists',flush=True)
+          for attempt in range(12):
+            try:
+              h=fetch(base+'/health',10)
+              if h['version']=='1.1.0':break
+            except Exception as exc:print('health error:',exc,flush=True)
+            time.sleep(5)
+          else:raise AssertionError('new worker version not online')
+          coverage=set()
+          for n in (1,2,3):
+            d=fetch(base+'/api.php/provide/vod/shard/'+str(n)+'/?'+urllib.parse.urlencode({'ac':'detail','wd':'铁男'}))
+            i=d.get('search_info',{})
+            keys_in_shard={x['site'] for x in i.get('source_diagnostics',[])}
+            assert len(keys_in_shard)==17,(n,len(keys_in_shard),keys_in_shard)
+            assert coverage.isdisjoint(keys_in_shard),'same upstream CMS found in multiple shards'
+            coverage.update(keys_in_shard)
+            print('SHARD',n,'17 distinct real CMS searched, results=',len(d['list']),flush=True)
+          assert len(coverage)==51,len(coverage)
+          d=fetch(base+'/api.php/discover/vod/?'+urllib.parse.urlencode({'ac':'detail','wd':'The Matrix'}))
+          assert d.get('code')==1
+          assert d.get('search_info',{}).get('kind')=='metadata_only'
+          assert d.get('list'), 'none of the independent metadata search providers returned results'
+          assert all(not x.get('vod_play_url') for x in d['list'])
+          print('DISCOVERY verified:',len(d['list']),'results;',len(d['search_info']['source_diagnostics']),'providers checked',flush=True)
+          print('ALL CHECKS PASS: 51 unique playable-source candidates + independent metadata engines',flush=True)
+          PY
