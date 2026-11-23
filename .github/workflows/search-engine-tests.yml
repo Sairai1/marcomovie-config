@@ -1,0 +1,25 @@
+name: MarcoSearch tests
+on:
+  push:
+    paths:
+      - 'search-engine/**'
+      - '.github/workflows/search-engine-tests.yml'
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: search-engine
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate source syntax
+        run: |
+          node --check engine.js
+          node --check server.js
+          node --check tests/engine.test.js
+      - name: Run tests
+        run: npm test
