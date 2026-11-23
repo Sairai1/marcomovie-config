@@ -21,5 +21,9 @@ jobs:
           node --check src/engine.js
           node --check src/index.js
           node --check tests/engine.test.js
+      - name: Install Worker build tools
+        run: npm install --no-audit --no-fund
       - name: Test federated CMS search logic
         run: npm test
+      - name: Bundle-check Worker without deployment
+        run: npx wrangler deploy --dry-run --outdir dist
