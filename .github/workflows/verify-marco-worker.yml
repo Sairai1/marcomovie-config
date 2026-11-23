@@ -2,37 +2,47 @@ name: Verify deployed MarcoSearch Worker
 on:
   push:
     paths:
+      - 'cloudflare-worker/**'
       - '.github/workflows/verify-marco-worker.yml'
   workflow_dispatch:
 jobs:
   external-endpoint-check:
     runs-on: ubuntu-latest
     steps:
-      - name: Check public Cloudflare endpoint
+      - name: Poll deployed Worker for updated health and search API
         shell: bash
         run: |
           set -euo pipefail
           python3 - <<'PY'
-          import json, urllib.request, urllib.parse, urllib.error
+          import json, urllib.request, urllib.parse, urllib.error, time
           base='https://marcomovie-config.guochuwei0913.workers.dev'
           urls=[base+'/health',base+'/api.php/provide/vod/?'+urllib.parse.urlencode({'ac':'detail','wd':'Tetsuo'})]
-          for idx, url in enumerate(urls):
-              print('Checking',url,flush=True)
+          for attempt in range(1,9):
+              print('Attempt',attempt,'of 8',flush=True)
               try:
-                  request=urllib.request.Request(url,headers={'User-Agent':'MarcoSearch-Healthcheck/1.0','Accept':'application/json'})
-                  with urllib.request.urlopen(request,timeout=45) as resp:
-                      status=resp.status
-                      raw=resp.read(150000).decode('utf-8','replace')
-                  print('HTTP',status,'BODY',raw[:500],flush=True)
-                  data=json.loads(raw)
-                  assert status==200, f'HTTP {status}'
-                  if idx==0:
-                      assert data.get('ok') is True, 'Worker health did not return ok:true'
-                      assert data.get('name')=='MarcoSearch Workers', 'Worker does not appear to run the MarcoSearch Cloudflare code'
-                  else:
-                      assert isinstance(data.get('list'),list), 'Search response missing list'
-                      assert 'code' in data,'Search response missing CMS code'
+                  replies=[]
+                  for url in urls:
+                      print('GET',url,flush=True)
+                      req=urllib.request.Request(url,headers={'User-Agent':'MarcoSearch-Healthcheck/1.0','Accept':'application/json'})
+                      with urllib.request.urlopen(req,timeout=40) as resp:
+                          status=resp.status
+                          body=resp.read(150000).decode('utf-8','replace')
+                      print('HTTP',status,'BODY',body[:700],flush=True)
+                      assert status==200
+                      replies.append(json.loads(body))
+                  health,search=replies
+                  assert health.get('ok') is True
+                  assert health.get('name')=='MarcoSearch Workers'
+                  assert health.get('version')=='1.0.1', 'Worker updated build not deployed yet'
+                  assert search.get('code')==1, 'search response not successful'
+                  assert isinstance(search.get('list'),list)
+                  assert search.get('search_info',{}).get('scanned',0)>=1, 'no upstream sources scanned'
+                  print('WORKER LIVE SEARCH VERIFIED',flush=True)
+                  break
               except Exception as exc:
-                  print('CHECK FAILED:',type(exc).__name__,str(exc),flush=True)
-                  raise
+                  print('NOT VERIFIED:',type(exc).__name__,str(exc),flush=True)
+                  if isinstance(exc,urllib.error.HTTPError):
+                      print('Error body:',exc.read(1500).decode('utf-8','replace'),flush=True)
+                  if attempt==8: raise
+                  time.sleep(10)
           PY
