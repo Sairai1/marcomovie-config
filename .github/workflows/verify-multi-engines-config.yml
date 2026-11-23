@@ -32,7 +32,7 @@ jobs:
           for attempt in range(12):
             try:
               h=fetch(base+'/health',10)
-              if h['version']=='1.2.0':break
+              if h['version']=='1.2.1':break
             except Exception as exc:print('health error:',exc,flush=True)
             time.sleep(5)
           else:raise AssertionError('new worker version not online')
@@ -42,7 +42,7 @@ jobs:
             i=d.get('search_info',{})
             keys_in_shard={x['site'] for x in i.get('source_diagnostics',[])}
             assert len(keys_in_shard)==17,(n,len(keys_in_shard),keys_in_shard)
-            assert coverage.isdisjoint(keys_in_shard),'same upstream CMS found in multiple shards'
+            assert coverage.isdisjoint(keys_in_shard),('overlap',n,sorted(coverage.intersection(keys_in_shard)))
             coverage.update(keys_in_shard)
             print('SHARD',n,'17 distinct real CMS searched, results=',len(d['list']),flush=True)
           assert len(coverage)==51,len(coverage)
