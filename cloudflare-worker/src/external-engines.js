@@ -163,7 +163,10 @@ export async function panSouSearch(term,base,token="",opts={}){
     for(const row of rows){
       if(uniq.has(row.link))continue;
       uniq.add(row.link);
-      list.push(makeVod(refId("ps2",String(list.length+1)),row.title,
+      const encoded=btoa(Array.from(new TextEncoder().encode(JSON.stringify({
+        link:row.link,title:row.title,platform:row.platform})),x=>String.fromCharCode(x)).join(""))
+        .replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
+      list.push(makeVod("ps2_"+encoded,row.title,
         "PanSou · "+row.platform+" 網盤分享索引（非串流）",
         row.link,"第三方分享索引；可能失效、需要登入或未經授權，請自行確認合法性。"));
     }
@@ -174,8 +177,21 @@ export async function panSouSearch(term,base,token="",opts={}){
       source_diagnostics:[{provider:"PanSou",status:val(e.message).slice(0,60),count:0}]})};
   }
 }
-// PanSou IDs encode no arbitrary user URLs; avoid persisted cloud-share details.
-export function panSouDetail(){return [];}
+// No server-side storage: validated share URL is embedded in the detail ID
+// and is never fetched by the Worker.
+export function panSouDetail(encoded){
+  if(typeof encoded!=="string"||!/^ps2_[a-zA-Z0-9_-]{12,2600}$/.test(encoded))return [];
+  try{
+    const bin=atob(encoded.slice(4).replace(/-/g,"+").replace(/_/g,"/"));
+    const raw=new TextDecoder().decode(Uint8Array.from(bin,x=>x.charCodeAt(0)));
+    const item=JSON.parse(raw);
+    const link=cleanUrl(item.link,providerHosts);
+    const title=val(item.title).slice(0,170),platform=val(item.platform).slice(0,40);
+    if(!link||!title)return [];
+    return [makeVod(encoded,title,"PanSou · "+platform+" 分享索引（非串流）",link,
+      "僅列出第三方分享頁面，不是影片串流。確認分享者有適當授權後再使用。")];
+  }catch{return [];}
+}
 
 const wmRegions=/^[A-Z]{2}(,[A-Z]{2}){0,2}$/;
 function watchmodeRegion(envRegions){
