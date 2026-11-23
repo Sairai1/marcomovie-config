@@ -89,3 +89,30 @@ MarcoDiscover 独立查询外部影视资料库，不复用 51 个 CMS 的缓存
 3. 某些 CMS 站會拒絕 Cloudflare 伺服端請求，空搜索结果不等同於該作品絕不存在。
 4. 公開的 .workers.dev 入口沒有登入驗證，可能被其他人使用並耗掉免費額度；正式公開使用前應增加 Cloudflare 管控。
 5. 因為不是串流代理，實際影片載入能力、版權授權、地理限制和字幕仍依各站提供。
+
+## v1.2 — 外部影片來源擴充（2026-11-23）
+
+**MarcoArchive — 已接入 all.json、已通過公網測試。** 使用 Internet Archive 官方 Advanced Search API，僅查 mediatype:movies 的真實影片目錄，與原 51 個 CMS 不同。
+
+- 搜索入口：/api.php/archive/vod/?ac=detail&wd=Night%20of%20the%20Living%20Dead
+- 返回標題、年份、archive.org/details 原站頁面；不偽造串流、下載或授權。Archive 可能包含片段、預告片、使用者上傳資料，結果不等於完整正版。
+- 公網測試：.github/workflows/verify-external-engines.yml。
+
+**PanSou — 適配器已完成，但沒有部署自建後端，未加入正式訂閱。** fish2018/pansou 是 Go 服務，不能把其原始服務直接當作 Cloudflare Worker 使用。
+
+- 需另行有合法可用的 HTTPS PanSou 服務；在 Worker Variables 設 PANSOU_API_URL，例如 https://your-pansou.example。
+- 若 PanSou 啟用認證，在 Worker Secrets 設 PANSOU_BEARER_TOKEN；勿把憑證放進 GitHub、all.json 或聊天。
+- 搜索入口：/api.php/pansou/vod/?ac=detail&wd=片名；向固定服務 GET /api/search?kw=...，解析 merged_by_type，顯示受限制的 HTTPS 網盤分享頁面。不下載、不繞過驗證、不冒充影片播放鏈接。
+- 官方專案：https://github.com/fish2018/pansou
+
+**Watchmode — 適配器已完成，但需要 API Key，未加入正式訂閱。** 它提供合法平台的可用位置而非影音檔案。
+
+- 前往 https://api.watchmode.com/requestApiKey/ 申請。Developer Free 目前 2,500 credits/月；只允許非商業用途，顯示結果須署名及連結 Watchmode.com，詳見 https://api.watchmode.com/pricing。
+- 在 Worker Secrets 設 WATCHMODE_API_KEY；可選 Worker Variable WATCHMODE_REGIONS=US,TW（需符合帳戶開通區域）。金鑰只以 X-API-Key header 傳給 Watchmode。
+- 搜索入口：/api.php/watchmode/vod/?ac=detail&wd=The%20Matrix；詳情調用 Title Sources 位置接口；不提供內建播放。
+
+### 啟用方式與界限
+
+於 Cloudflare Worker → Settings → Variables and Secrets 設定對應 Secret/Variable；確認來源實際返回可用的、適當授權的結果後，才加入 all.json。不要把任何 Secret 寫到公開配置。
+
+Worker /health 版本：1.2.0。正式訂閱目前 57 個影視與搜尋入口，保留原 85 組直播。57 個入口並不代表 57 個全新片庫，之前的 51 個 CMS 仍是原有來源。
