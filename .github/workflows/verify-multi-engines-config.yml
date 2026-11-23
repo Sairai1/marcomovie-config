@@ -23,16 +23,16 @@ jobs:
           cfg=fetch(raw)
           sites=cfg['sites']
           keys={s['key'] for s in sites}
-          assert len(sites)==56 and len(cfg['lives'])==85,(len(sites),len(cfg['lives']))
+          assert len(sites)==57 and len(cfg['lives'])==85,(len(sites),len(cfg['lives']))
           assert len(keys)==len(sites)
-          needed={'marco_search','marco_search_1','marco_search_2','marco_search_3','marco_discover'}
+          needed={'marco_search','marco_search_1','marco_search_2','marco_search_3','marco_discover','marco_archive'}
           assert needed.issubset(keys)
           assert all(x['api'].startswith(base) for x in sites if x['key'] in needed)
           print('CONFIG verified:',len(sites),'sites,',len(cfg['lives']),'live lists',flush=True)
           for attempt in range(12):
             try:
               h=fetch(base+'/health',10)
-              if h['version']=='1.1.0':break
+              if h['version']=='1.2.0':break
             except Exception as exc:print('health error:',exc,flush=True)
             time.sleep(5)
           else:raise AssertionError('new worker version not online')
@@ -52,5 +52,11 @@ jobs:
           assert d.get('list'), 'none of the independent metadata search providers returned results'
           assert all(not x.get('vod_play_url') for x in d['list'])
           print('DISCOVERY verified:',len(d['list']),'results;',len(d['search_info']['source_diagnostics']),'providers checked',flush=True)
-          print('ALL CHECKS PASS: 51 unique playable-source candidates + independent metadata engines',flush=True)
+          a=fetch(base+'/api.php/archive/vod/?'+urllib.parse.urlencode({'ac':'detail','wd':'Night of the Living Dead'}))
+          assert a.get('code')==1
+          assert a.get('search_info',{}).get('kind')=='archive_item'
+          assert a.get('list')
+          assert all(not item.get('vod_play_url') for item in a['list'])
+          print('ARCHIVE verified:',len(a['list']),'independent movie item records',flush=True)
+          print('ALL CHECKS PASS: 51 unique CMS sources + independent metadata/archive engines',flush=True)
           PY
