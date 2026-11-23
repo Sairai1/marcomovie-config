@@ -29,7 +29,7 @@ function timeoutPromise(ms){
 async function fetchText(url,fetcher,timeout,maxBytes=900000){
   const a=timeoutPromise(timeout);
   try{
-    const response=await fetcher(url,{signal:a.signal,redirect:"error",headers:{Accept:"application/json, text/xml, */*"}});
+    const response=await fetcher(url,{signal:a.signal,redirect:"manual",headers:{Accept:"application/json, text/xml, */*"}});
     if(!response.ok)throw Error("http_"+response.status);
     if(Number(response.headers?.get("content-length")||0)>maxBytes)throw Error("too_large");
     const value=await response.text();
@@ -89,7 +89,7 @@ export async function tmdbAliases(query,token,fetcher=fetch){
   const a=timeoutPromise(2000);
   try{
     const r=await fetcher("https://api.themoviedb.org/3/search/movie?"+params,{
-      signal:a.signal,redirect:"error",headers:{Authorization:"Bearer "+token,Accept:"application/json"}});
+      signal:a.signal,redirect:"manual",headers:{Authorization:"Bearer "+token,Accept:"application/json"}});
     if(!r.ok)return [];
     const json=await r.json();
     return (json.results||[]).slice(0,2).flatMap(x=>[x.original_title,x.title]).filter(Boolean);
