@@ -49,7 +49,7 @@ async function handle(request,env={}){
   if(request.method!=="GET"&&request.method!=="HEAD")return response({code:0,msg:"GET only",list:[]},405,0);
   const u=new URL(request.url),path=u.pathname.replace(/\/$/,"");
   if(path==="/health")return response({ok:true,name:"MarcoSearch Workers",
-    version:"1.2.1",runtime:"cloudflare",
+    version:"1.3.0",runtime:"cloudflare",
     engines:["cms-aggregate","cms-shard-1","cms-shard-2","cms-shard-3",
       "wikidata","apple-itunes","tvmaze","tmdb-optional",
       "internet-archive","pansou-optional","watchmode-optional"]},200,30);
@@ -70,13 +70,18 @@ async function handle(request,env={}){
   const movieId=String(u.searchParams.get("ids")||"").trim().slice(0,2900);
   const pg=asNumber(u.searchParams.get("pg"),1,1,20);
   const shard=shardMatch?Number(shardMatch[1]):0;
+  const fullDetails=isCMS&&u.searchParams.get("full")==="1";
   const hasDetail=!!movieId&&(ac==="detail"||ac==="videolist");
   const hasSearch=!!keyword&&["detail","videolist","list"].includes(ac);
   if(!hasDetail&&!hasSearch)return response(externalKind?externalHome(externalKind):
     isDiscover?discoveryHome():home(),200,120);
 
-  const key=[externalKind|| (isDiscover?"discover":"cms"),shard,
-    hasDetail?"detail:"+movieId:"q:"+keyword.toLowerCase()+":"+pg].join(":");
+  // CMS composite IDs are globally valid across the three shards.
+  // Share the same cached detail no matter which search shard found the film.
+  const key=hasDetail&&isCMS?
+    "cms:detail:"+movieId+":"+(fullDetails?"full":"fast"):
+    [externalKind|| (isDiscover?"discover":"cms"),shard,
+      hasDetail?"detail:"+movieId:"q:"+keyword.toLowerCase()+":"+pg].join(":");
   const hit=fromMemory(key);
   if(hit)return response(hit,200,20);
   try{
@@ -107,7 +112,9 @@ async function handle(request,env={}){
             source_diagnostics:result.diagnostics}};
       }
     }else if(hasDetail){
-      output=detailsResponse(await details(movieId,data));
+      output=detailsResponse(await details(movieId,data,fetch,{full:fullDetails,
+        graceMs:asNumber(env.DETAIL_BACKUP_GRACE_MS,260,0,800),
+        timeoutMs:asNumber(env.DETAIL_TIMEOUT_MS,3400,500,4500)}));
     }else{
       const sorted=[...data.sites].sort((a,b)=>(Number(b.quickSearch)||0)-(Number(a.quickSearch)||0));
       const selected=shard?sorted.slice((shard-1)*17,shard*17):data.sites;
