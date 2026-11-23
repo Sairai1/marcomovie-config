@@ -19,7 +19,10 @@ function strYear(s){
 }
 function relevant(title,terms){
   const t=normalize(title);
-  return terms.some(x=>{const n=normalize(x);return n.length>=3&&(t.includes(n)||(n.length>6&&n.includes(t)&&t.length>=5));});
+  return terms.some(x=>{
+    const n=normalize(x),minimum=/[\u3400-\u9fff\u3040-\u30ff]/u.test(x)?2:3;
+    return n.length>=minimum&&(t.includes(n)||(n.length>6&&n.includes(t)&&t.length>=5));
+  });
 }
 function titleAliasTerms(term,aliases=new Map()){
   return expandTerms(term,aliases).slice(0,3);
@@ -201,12 +204,11 @@ function watchmodeRegion(envRegions){
 export async function watchmodeSearch(term,key,opts={}){
   if(!key)return {configured:false,...listing([],{kind:"availability",status:"not_configured"})};
   const url=new URL("https://api.watchmode.com/v1/search/");
-  url.searchParams.set("apiKey",key);
   url.searchParams.set("search_field","name");
   url.searchParams.set("search_value",val(term).slice(0,90));
   url.searchParams.set("types","movie,tv");
   try{
-    const d=await fetchJSON(url.toString(),opts);
+    const d=await fetchJSON(url.toString(),{...opts,headers:{"X-API-Key":key}});
     const arr=Array.isArray(d.title_results)?d.title_results:[];
     const list=arr.filter(x=>x.id&&x.name&&relevant(x.name,[term]))
       .slice(0,25).map(x=>makeVod(refId("wm2",x.id),x.name,
@@ -223,9 +225,9 @@ export async function watchmodeDetail(encoded,key,region="US",opts={}){
   if(!key||!/^wm2_\d{1,12}$/.test(val(encoded)))return [];
   const id=encoded.slice(4),regions=watchmodeRegion(region);
   const url=new URL("https://api.watchmode.com/v1/title/"+id+"/sources/");
-  url.searchParams.set("apiKey",key);url.searchParams.set("regions",regions);
+  url.searchParams.set("regions",regions);
   try{
-    const d=await fetchJSON(url.toString(),opts);
+    const d=await fetchJSON(url.toString(),{...opts,headers:{"X-API-Key":key}});
     const providers=(Array.isArray(d)?d:[])
       .filter(x=>regions.split(",").includes(val(x.region||"US").toUpperCase()))
       .slice(0,25).map(x=>({provider:val(x.name).slice(0,100),
