@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: marco-search-sairai
+    runtime: node
+    plan: free
+    region: singapore
+    rootDir: search-engine
+    buildCommand: npm install --omit=dev && npm test
+    startCommand: npm start
+    healthCheckPath: /health
+    autoDeployTrigger: commit
+    envVars:
+      - key: NODE_VERSION
+        value: '22'
+      - key: SEARCH_SOURCES
+        value: '24'
+      - key: MAX_BUSY
+        value: '8'
