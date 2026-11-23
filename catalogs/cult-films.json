@@ -1,0 +1,1552 @@
+{
+  "title": "Cult／邪典電影多語言搜索索引",
+  "version": "2026-11-23",
+  "purpose": "帮助按原名、译名与年代定位冷门影片；不是影片播放源",
+  "disclaimer": "Cult 定义存在主观性；片单为人工选取的检索样本而非穷举。作品元数据和搜索命中不代表视频可播放、授权或无删减。",
+  "categories": [
+    "日本地下／獵奇／恐怖",
+    "意大利鉛黃／哥德恐怖",
+    "香港邪典／奇情／靈幻",
+    "血漿／剝削／地下B級片",
+    "超現實／藝術邪典",
+    "B級科幻／怪獸／怪奇喜劇",
+    "歐陸極端／驚悚邪典",
+    "亞洲其他／當代Cult"
+  ],
+  "films": [
+    {
+      "id": "cult_jp_gp1",
+      "category": "日本地下／獵奇／恐怖",
+      "title_cn": "恶魔实验",
+      "title_en": "Guinea Pig: Devil's Experiment",
+      "title_ja": "ギニーピッグ 悪魔の実験",
+      "aliases": [
+        "豚鼠：恶魔实验",
+        "豚鼠1",
+        "恶魔试验",
+        "Devil's Experiment",
+        "Akuma no Jikken"
+      ],
+      "year": 1985
+    },
+    {
+      "id": "cult_jp_gp2",
+      "category": "日本地下／獵奇／恐怖",
+      "title_cn": "血肉之花",
+      "title_en": "Guinea Pig 2: Flower of Flesh and Blood",
+      "title_ja": "ギニーピッグ2 血肉の華",
+      "aliases": [
+        "豚鼠2：血肉之花",
+        "豚鼠2",
+        "Flower of Flesh and Blood",
+        "Chiniku no Hana"
+      ],
+      "year": 1985
+    },
+    {
+      "id": "cult_jp_gp3",
+      "category": "日本地下／獵奇／恐怖",
+      "title_cn": "他不会死",
+      "title_en": "Guinea Pig 3: He Never Dies",
+      "title_ja": "ギニーピッグ3 戦慄! 死なない男",
+      "aliases": [
+        "不死人",
+        "战栗！不死之人",
+        "豚鼠3",
+        "He Never Dies",
+        "The Man Who Never Dies",
+        "Senritsu Shinanai Otoko"
+      ],
+      "year": 1986
+    },
+    {
+      "id": "cult_jp_gp4",
+      "category": "日本地下／獵奇／恐怖",
+      "title_cn": "下水道的美人鱼",
+      "title_en": "Guinea Pig: Mermaid in a Manhole",
+      "title_ja": "ギニーピッグ マンホールの中の人魚",
+      "aliases": [
+        "地窖人鱼",
+        "下水道人鱼",
+        "豚鼠4",
+        "Mermaid in a Manhole",
+        "Manhole no Naka no Ningyo"
+      ],
+      "year": 1988
+    },
+    {
+      "id": "cult_jp_gp5",
+      "category": "日本地下／獵奇／恐怖",
+      "title_cn": "圣母机器人",
+      "title_en": "Guinea Pig: Android of Notre Dame",
+      "title_ja": "ギニーピッグ ノートルダムのアンドロイド",
+      "aliases": [
+        "圣母机械人",
+        "豚鼠5",
+        "Android of Notre Dame",
+        "Androids of Notre Dame",
+        "Notorudamu no Andoroido"
+      ],
+      "year": 1988
+    },
+    {
+      "id": "cult_jp_gp6",
+      "category": "日本地下／獵奇／恐怖",
+      "title_cn": "恶魔女医生",
+      "title_en": "Guinea Pig: Devil Woman Doctor",
+      "title_ja": "ギニーピッグ ピーターの悪魔の女医さん",
+      "aliases": [
+        "恶魔女医",
+        "魔鬼女医生",
+        "豚鼠6",
+        "Devil Woman Doctor",
+        "Devil Doctor Woman",
+        "Pita no Akuma no Joi-san"
+      ],
+      "year": null,
+      "notes": "不同资料使用 1986、1990 年及不同编号，请优先按片名匹配"
+    },
+    {
+      "id": "cult_001",
+      "category": "日本地下／獵奇／恐怖",
+      "title_cn": "鐵男",
+      "title_en": "Tetsuo: The Iron Man",
+      "aliases": [
+        "鉄男",
+        "Tetsuo"
+      ]
+    },
+    {
+      "id": "cult_002",
+      "category": "日本地下／獵奇／恐怖",
+      "title_cn": "鐵男2：血肉橫飛",
+      "title_en": "Tetsuo II: Body Hammer",
+      "aliases": [
+        "鉄男II BODY HAMMER"
+      ]
+    },
+    {
+      "id": "cult_003",
+      "category": "日本地下／獵奇／恐怖",
+      "title_cn": "東京拳擊",
+      "title_en": "Tokyo Fist",
+      "aliases": [
+        "東京フィスト"
+      ]
+    },
+    {
+      "id": "cult_004",
+      "category": "日本地下／獵奇／恐怖",
+      "title_cn": "切膚之愛",
+      "title_en": "Audition",
+      "aliases": [
+        "オーディション",
+        "Audition 1999"
+      ]
+    },
+    {
+      "id": "cult_005",
+      "category": "日本地下／獵奇／恐怖",
+      "title_cn": "殺手阿一",
+      "title_en": "Ichi the Killer",
+      "aliases": [
+        "殺し屋1"
+      ]
+    },
+    {
+      "id": "cult_006",
+      "category": "日本地下／獵奇／恐怖",
+      "title_cn": "極道恐怖大劇場 牛頭",
+      "title_en": "Gozu",
+      "aliases": [
+        "極道恐怖大劇場 牛頭",
+        "牛頭"
+      ]
+    },
+    {
+      "id": "cult_007",
+      "category": "日本地下／獵奇／恐怖",
+      "title_cn": "鬼怪屋",
+      "title_en": "House",
+      "aliases": [
+        "ハウス",
+        "Hausu"
+      ]
+    },
+    {
+      "id": "cult_008",
+      "category": "日本地下／獵奇／恐怖",
+      "title_cn": "自殺俱樂部",
+      "title_en": "Suicide Club",
+      "aliases": [
+        "自殺サークル"
+      ]
+    },
+    {
+      "id": "cult_009",
+      "category": "日本地下／獵奇／恐怖",
+      "title_cn": "奇異馬戲團",
+      "title_en": "Strange Circus",
+      "aliases": [
+        "奇妙なサーカス"
+      ]
+    },
+    {
+      "id": "cult_010",
+      "category": "日本地下／獵奇／恐怖",
+      "title_cn": "愛的曝光",
+      "title_en": "Love Exposure",
+      "aliases": [
+        "愛のむきだし"
+      ]
+    },
+    {
+      "id": "cult_011",
+      "category": "日本地下／獵奇／恐怖",
+      "title_cn": "真夜中的彌次先生與喜多先生",
+      "title_en": "Yaji and Kita: The Midnight Pilgrims",
+      "aliases": [
+        "真夜中の弥次さん喜多さん"
+      ]
+    },
+    {
+      "id": "cult_012",
+      "category": "日本地下／獵奇／恐怖",
+      "title_cn": "邪惡陷阱",
+      "title_en": "Evil Dead Trap",
+      "aliases": [
+        "死霊の罠"
+      ]
+    },
+    {
+      "id": "cult_013",
+      "category": "日本地下／獵奇／恐怖",
+      "title_cn": "機器少女",
+      "title_en": "The Machine Girl",
+      "aliases": [
+        "片腕マシンガール"
+      ]
+    },
+    {
+      "id": "cult_014",
+      "category": "日本地下／獵奇／恐怖",
+      "title_cn": "東京殘酷警察",
+      "title_en": "Tokyo Gore Police",
+      "aliases": [
+        "東京残酷警察"
+      ]
+    },
+    {
+      "id": "cult_015",
+      "category": "日本地下／獵奇／恐怖",
+      "title_cn": "肉體兵器",
+      "title_en": "Meatball Machine",
+      "aliases": [
+        "ミートボールマシン"
+      ]
+    },
+    {
+      "id": "cult_016",
+      "category": "日本地下／獵奇／恐怖",
+      "title_cn": "咒怨：詛咒",
+      "title_en": "Ju-on: The Curse",
+      "aliases": [
+        "呪怨 ビデオ版"
+      ]
+    },
+    {
+      "id": "cult_017",
+      "category": "日本地下／獵奇／恐怖",
+      "title_cn": "咒怨",
+      "title_en": "Ju-on: The Grudge",
+      "aliases": [
+        "呪怨 劇場版"
+      ]
+    },
+    {
+      "id": "cult_018",
+      "category": "日本地下／獵奇／恐怖",
+      "title_cn": "靈異咒",
+      "title_en": "Noroi: The Curse",
+      "aliases": [
+        "ノロイ"
+      ]
+    },
+    {
+      "id": "cult_019",
+      "category": "日本地下／獵奇／恐怖",
+      "title_cn": "超自然",
+      "title_en": "Occult",
+      "aliases": [
+        "オカルト",
+        "Occult 2009"
+      ]
+    },
+    {
+      "id": "cult_020",
+      "category": "日本地下／獵奇／恐怖",
+      "title_cn": "生存還是毀滅：犯罪者",
+      "title_en": "Dead or Alive",
+      "aliases": [
+        "DEAD OR ALIVE 犯罪者"
+      ]
+    },
+    {
+      "id": "cult_021",
+      "category": "日本地下／獵奇／恐怖",
+      "title_cn": "怪談新耳袋",
+      "title_en": "Tales of Terror from Tokyo",
+      "aliases": [
+        "怪談新耳袋"
+      ]
+    },
+    {
+      "id": "cult_022",
+      "category": "日本地下／獵奇／恐怖",
+      "title_cn": "鬼談百景",
+      "title_en": "Kidan Piece of Darkness",
+      "aliases": [
+        "鬼談百景"
+      ]
+    },
+    {
+      "id": "cult_023",
+      "category": "日本地下／獵奇／恐怖",
+      "title_cn": "惡魔的藝術",
+      "title_en": "Organ",
+      "aliases": [
+        "オルガン",
+        "Organ 1996"
+      ]
+    },
+    {
+      "id": "cult_024",
+      "category": "意大利鉛黃／哥德恐怖",
+      "title_cn": "陰風陣陣",
+      "title_en": "Suspiria",
+      "aliases": [
+        "Suspiria 1977"
+      ]
+    },
+    {
+      "id": "cult_025",
+      "category": "意大利鉛黃／哥德恐怖",
+      "title_cn": "深夜止步",
+      "title_en": "Deep Red",
+      "aliases": [
+        "Profondo Rosso"
+      ]
+    },
+    {
+      "id": "cult_026",
+      "category": "意大利鉛黃／哥德恐怖",
+      "title_cn": "水晶鳥",
+      "title_en": "The Bird with the Crystal Plumage",
+      "aliases": [
+        "L'uccello dalle piume di cristallo"
+      ]
+    },
+    {
+      "id": "cult_027",
+      "category": "意大利鉛黃／哥德恐怖",
+      "title_cn": "黑暗",
+      "title_en": "Tenebrae",
+      "aliases": [
+        "Tenebre"
+      ]
+    },
+    {
+      "id": "cult_028",
+      "category": "意大利鉛黃／哥德恐怖",
+      "title_cn": "神話",
+      "title_en": "Phenomena",
+      "aliases": [
+        "Creepers",
+        "Phenomena 1985"
+      ]
+    },
+    {
+      "id": "cult_029",
+      "category": "意大利鉛黃／哥德恐怖",
+      "title_cn": "地獄",
+      "title_en": "Inferno",
+      "aliases": [
+        "Inferno 1980"
+      ]
+    },
+    {
+      "id": "cult_030",
+      "category": "意大利鉛黃／哥德恐怖",
+      "title_cn": "血與黑蕾絲",
+      "title_en": "Blood and Black Lace",
+      "aliases": [
+        "Sei donne per l'assassino"
+      ]
+    },
+    {
+      "id": "cult_031",
+      "category": "意大利鉛黃／哥德恐怖",
+      "title_cn": "血腥海灣",
+      "title_en": "A Bay of Blood",
+      "aliases": [
+        "Reazione a catena",
+        "Twitch of the Death Nerve"
+      ]
+    },
+    {
+      "id": "cult_032",
+      "category": "意大利鉛黃／哥德恐怖",
+      "title_cn": "別折磨小孩",
+      "title_en": "Don't Torture a Duckling",
+      "aliases": [
+        "Non si sevizia un paperino"
+      ]
+    },
+    {
+      "id": "cult_033",
+      "category": "意大利鉛黃／哥德恐怖",
+      "title_cn": "鬼驅人",
+      "title_en": "The Beyond",
+      "aliases": [
+        "E tu vivrai nel terrore! L'aldilà"
+      ]
+    },
+    {
+      "id": "cult_034",
+      "category": "意大利鉛黃／哥德恐怖",
+      "title_cn": "殭屍吃人之午夜恐懼",
+      "title_en": "Zombie Flesh Eaters",
+      "aliases": [
+        "Zombi 2",
+        "Zombie 1979"
+      ]
+    },
+    {
+      "id": "cult_035",
+      "category": "意大利鉛黃／哥德恐怖",
+      "title_cn": "僵尸城市",
+      "title_en": "City of the Living Dead",
+      "aliases": [
+        "Paura nella città dei morti viventi"
+      ]
+    },
+    {
+      "id": "cult_036",
+      "category": "意大利鉛黃／哥德恐怖",
+      "title_cn": "墓地邂逅",
+      "title_en": "The House by the Cemetery",
+      "aliases": [
+        "Quella villa accanto al cimitero"
+      ]
+    },
+    {
+      "id": "cult_037",
+      "category": "意大利鉛黃／哥德恐怖",
+      "title_cn": "死亡之王",
+      "title_en": "Cemetery Man",
+      "aliases": [
+        "Dellamorte Dellamore"
+      ]
+    },
+    {
+      "id": "cult_038",
+      "category": "意大利鉛黃／哥德恐怖",
+      "title_cn": "歌劇院",
+      "title_en": "Opera",
+      "aliases": [
+        "Terror at the Opera",
+        "Opera 1987"
+      ]
+    },
+    {
+      "id": "cult_039",
+      "category": "意大利鉛黃／哥德恐怖",
+      "title_cn": "黑色星期日",
+      "title_en": "Black Sunday",
+      "aliases": [
+        "La maschera del demonio"
+      ]
+    },
+    {
+      "id": "cult_040",
+      "category": "意大利鉛黃／哥德恐怖",
+      "title_cn": "紐約開膛手",
+      "title_en": "The New York Ripper",
+      "aliases": [
+        "Lo squartatore di New York"
+      ]
+    },
+    {
+      "id": "cult_041",
+      "category": "意大利鉛黃／哥德恐怖",
+      "title_cn": "食人族大屠殺",
+      "title_en": "Cannibal Holocaust",
+      "aliases": [
+        "Cannibal Holocaust 1980"
+      ]
+    },
+    {
+      "id": "cult_042",
+      "category": "意大利鉛黃／哥德恐怖",
+      "title_cn": "食人族殘酷世界",
+      "title_en": "Cannibal Ferox",
+      "aliases": [
+        "Make Them Die Slowly"
+      ]
+    },
+    {
+      "id": "cult_043",
+      "category": "意大利鉛黃／哥德恐怖",
+      "title_cn": "活死人之夜",
+      "title_en": "Night of the Living Dead",
+      "aliases": [
+        "Night of the Living Dead 1968"
+      ]
+    },
+    {
+      "id": "cult_044",
+      "category": "香港邪典／奇情／靈幻",
+      "title_cn": "力王",
+      "title_en": "Riki-Oh: The Story of Ricky",
+      "aliases": [
+        "力王 1991",
+        "Story of Ricky"
+      ]
+    },
+    {
+      "id": "cult_045",
+      "category": "香港邪典／奇情／靈幻",
+      "title_cn": "魔",
+      "title_en": "The Boxer's Omen",
+      "aliases": [
+        "Boxer's Omen"
+      ]
+    },
+    {
+      "id": "cult_046",
+      "category": "香港邪典／奇情／靈幻",
+      "title_cn": "種鬼",
+      "title_en": "Seeding of a Ghost",
+      "aliases": [
+        "種鬼 1983"
+      ]
+    },
+    {
+      "id": "cult_047",
+      "category": "香港邪典／奇情／靈幻",
+      "title_cn": "八仙飯店之人肉叉燒包",
+      "title_en": "The Untold Story",
+      "aliases": [
+        "八仙飯店",
+        "人肉叉燒包"
+      ]
+    },
+    {
+      "id": "cult_048",
+      "category": "香港邪典／奇情／靈幻",
+      "title_cn": "伊波拉病毒",
+      "title_en": "Ebola Syndrome",
+      "aliases": [
+        "伊波拉病毒 1996"
+      ]
+    },
+    {
+      "id": "cult_049",
+      "category": "香港邪典／奇情／靈幻",
+      "title_cn": "原振俠與衛斯理",
+      "title_en": "The Seventh Curse",
+      "aliases": [
+        "第七詛咒"
+      ]
+    },
+    {
+      "id": "cult_050",
+      "category": "香港邪典／奇情／靈幻",
+      "title_cn": "殭屍先生",
+      "title_en": "Mr. Vampire",
+      "aliases": [
+        "僵尸先生"
+      ]
+    },
+    {
+      "id": "cult_051",
+      "category": "香港邪典／奇情／靈幻",
+      "title_cn": "鬼打鬼",
+      "title_en": "Encounters of the Spooky Kind",
+      "aliases": [
+        "Spooky Encounters"
+      ]
+    },
+    {
+      "id": "cult_052",
+      "category": "香港邪典／奇情／靈幻",
+      "title_cn": "倩女幽魂",
+      "title_en": "A Chinese Ghost Story",
+      "aliases": [
+        "倩女幽魂 1987"
+      ]
+    },
+    {
+      "id": "cult_053",
+      "category": "香港邪典／奇情／靈幻",
+      "title_cn": "降頭",
+      "title_en": "Black Magic",
+      "aliases": [
+        "Black Magic 1975"
+      ]
+    },
+    {
+      "id": "cult_054",
+      "category": "香港邪典／奇情／靈幻",
+      "title_cn": "蠱",
+      "title_en": "Bewitched",
+      "aliases": [
+        "Bewitched 1981"
+      ]
+    },
+    {
+      "id": "cult_055",
+      "category": "香港邪典／奇情／靈幻",
+      "title_cn": "油鬼子",
+      "title_en": "The Oily Maniac",
+      "aliases": [
+        "油鬼子 1976"
+      ]
+    },
+    {
+      "id": "cult_056",
+      "category": "香港邪典／奇情／靈幻",
+      "title_cn": "蛇殺手",
+      "title_en": "The Killer Snakes",
+      "aliases": [
+        "蛇殺手 1974"
+      ]
+    },
+    {
+      "id": "cult_057",
+      "category": "香港邪典／奇情／靈幻",
+      "title_cn": "邪",
+      "title_en": "Hex",
+      "aliases": [
+        "Hex 1980"
+      ]
+    },
+    {
+      "id": "cult_058",
+      "category": "香港邪典／奇情／靈幻",
+      "title_cn": "維多利亞壹號",
+      "title_en": "Dream Home",
+      "aliases": [
+        "維多利亞一號"
+      ]
+    },
+    {
+      "id": "cult_059",
+      "category": "香港邪典／奇情／靈幻",
+      "title_cn": "餃子",
+      "title_en": "Dumplings",
+      "aliases": [
+        "餃子 2004"
+      ]
+    },
+    {
+      "id": "cult_060",
+      "category": "香港邪典／奇情／靈幻",
+      "title_cn": "妖獸都市",
+      "title_en": "The Wicked City",
+      "aliases": [
+        "妖獸都市 1992"
+      ]
+    },
+    {
+      "id": "cult_061",
+      "category": "香港邪典／奇情／靈幻",
+      "title_cn": "猛鬼差館",
+      "title_en": "The Haunted Cop Shop",
+      "aliases": [
+        "猛鬼差館 1987"
+      ]
+    },
+    {
+      "id": "cult_062",
+      "category": "香港邪典／奇情／靈幻",
+      "title_cn": "猛鬼佛跳牆",
+      "title_en": "Bless This House",
+      "aliases": [
+        "猛鬼佛跳牆 1988"
+      ]
+    },
+    {
+      "id": "cult_063",
+      "category": "香港邪典／奇情／靈幻",
+      "title_cn": "陰陽路",
+      "title_en": "Troublesome Night",
+      "aliases": [
+        "陰陽路 1997"
+      ]
+    },
+    {
+      "id": "cult_064",
+      "category": "血漿／剝削／地下B級片",
+      "title_cn": "活死人黎明",
+      "title_en": "Dawn of the Dead",
+      "aliases": [
+        "Dawn of the Dead 1978"
+      ]
+    },
+    {
+      "id": "cult_065",
+      "category": "血漿／剝削／地下B級片",
+      "title_cn": "鬼玩人",
+      "title_en": "The Evil Dead",
+      "aliases": [
+        "Evil Dead 1981"
+      ]
+    },
+    {
+      "id": "cult_066",
+      "category": "血漿／剝削／地下B級片",
+      "title_cn": "鬼玩人2",
+      "title_en": "Evil Dead II",
+      "aliases": [
+        "Dead by Dawn"
+      ]
+    },
+    {
+      "id": "cult_067",
+      "category": "血漿／剝削／地下B級片",
+      "title_cn": "活跳屍",
+      "title_en": "Re-Animator",
+      "aliases": [
+        "Reanimator 1985"
+      ]
+    },
+    {
+      "id": "cult_068",
+      "category": "血漿／剝削／地下B級片",
+      "title_cn": "活魔人",
+      "title_en": "From Beyond",
+      "aliases": [
+        "From Beyond 1986"
+      ]
+    },
+    {
+      "id": "cult_069",
+      "category": "血漿／剝削／地下B級片",
+      "title_cn": "上流社會",
+      "title_en": "Society",
+      "aliases": [
+        "Society 1989"
+      ]
+    },
+    {
+      "id": "cult_070",
+      "category": "血漿／剝削／地下B級片",
+      "title_cn": "群屍玩過界",
+      "title_en": "Braindead",
+      "aliases": [
+        "Dead Alive"
+      ]
+    },
+    {
+      "id": "cult_071",
+      "category": "血漿／剝削／地下B級片",
+      "title_cn": "壞品味",
+      "title_en": "Bad Taste",
+      "aliases": [
+        "Bad Taste 1987"
+      ]
+    },
+    {
+      "id": "cult_072",
+      "category": "血漿／剝削／地下B級片",
+      "title_cn": "毒魔復仇",
+      "title_en": "The Toxic Avenger",
+      "aliases": [
+        "Toxic Avenger 1984"
+      ]
+    },
+    {
+      "id": "cult_073",
+      "category": "血漿／剝削／地下B級片",
+      "title_cn": "核子高中",
+      "title_en": "Class of Nuke 'Em High",
+      "aliases": [
+        "Class of Nuke Em High"
+      ]
+    },
+    {
+      "id": "cult_074",
+      "category": "血漿／剝削／地下B級片",
+      "title_cn": "活死人歸來",
+      "title_en": "The Return of the Living Dead",
+      "aliases": [
+        "Return of the Living Dead 1985"
+      ]
+    },
+    {
+      "id": "cult_075",
+      "category": "血漿／剝削／地下B級片",
+      "title_cn": "籃子裡的惡魔",
+      "title_en": "Basket Case",
+      "aliases": [
+        "Basket Case 1982"
+      ]
+    },
+    {
+      "id": "cult_076",
+      "category": "血漿／剝削／地下B級片",
+      "title_cn": "腦魔",
+      "title_en": "Brain Damage",
+      "aliases": [
+        "Brain Damage 1988"
+      ]
+    },
+    {
+      "id": "cult_077",
+      "category": "血漿／剝削／地下B級片",
+      "title_cn": "科學怪妓",
+      "title_en": "Frankenhooker",
+      "aliases": [
+        "Frankenhooker 1990"
+      ]
+    },
+    {
+      "id": "cult_078",
+      "category": "血漿／剝削／地下B級片",
+      "title_cn": "血宴",
+      "title_en": "Blood Feast",
+      "aliases": [
+        "Blood Feast 1963"
+      ]
+    },
+    {
+      "id": "cult_079",
+      "category": "血漿／剝削／地下B級片",
+      "title_cn": "粉紅火鶴",
+      "title_en": "Pink Flamingos",
+      "aliases": [
+        "粉紅色火烈鳥"
+      ]
+    },
+    {
+      "id": "cult_080",
+      "category": "血漿／剝削／地下B級片",
+      "title_cn": "女性麻煩",
+      "title_en": "Female Trouble",
+      "aliases": [
+        "Female Trouble 1974"
+      ]
+    },
+    {
+      "id": "cult_081",
+      "category": "血漿／剝削／地下B級片",
+      "title_cn": "多重瘋狂",
+      "title_en": "Multiple Maniacs",
+      "aliases": [
+        "Multiple Maniacs 1970"
+      ]
+    },
+    {
+      "id": "cult_082",
+      "category": "血漿／剝削／地下B級片",
+      "title_cn": "我唾棄你的墳墓",
+      "title_en": "I Spit on Your Grave",
+      "aliases": [
+        "Day of the Woman"
+      ]
+    },
+    {
+      "id": "cult_083",
+      "category": "血漿／剝削／地下B級片",
+      "title_cn": "左邊最後那幢房子",
+      "title_en": "The Last House on the Left",
+      "aliases": [
+        "Last House on the Left 1972"
+      ]
+    },
+    {
+      "id": "cult_084",
+      "category": "血漿／剝削／地下B級片",
+      "title_cn": "德州電鋸殺人狂",
+      "title_en": "The Texas Chain Saw Massacre",
+      "aliases": [
+        "Texas Chainsaw Massacre 1974"
+      ]
+    },
+    {
+      "id": "cult_085",
+      "category": "血漿／剝削／地下B級片",
+      "title_cn": "亨利：連環殺手的肖像",
+      "title_en": "Henry: Portrait of a Serial Killer",
+      "aliases": [
+        "Henry 1986"
+      ]
+    },
+    {
+      "id": "cult_086",
+      "category": "血漿／剝削／地下B級片",
+      "title_cn": "瘋子",
+      "title_en": "Maniac",
+      "aliases": [
+        "Maniac 1980"
+      ]
+    },
+    {
+      "id": "cult_087",
+      "category": "血漿／剝削／地下B級片",
+      "title_cn": "殺人鑽",
+      "title_en": "The Driller Killer",
+      "aliases": [
+        "Driller Killer"
+      ]
+    },
+    {
+      "id": "cult_088",
+      "category": "血漿／剝削／地下B級片",
+      "title_cn": "隔山有眼",
+      "title_en": "The Hills Have Eyes",
+      "aliases": [
+        "The Hills Have Eyes 1977"
+      ]
+    },
+    {
+      "id": "cult_089",
+      "category": "血漿／剝削／地下B級片",
+      "title_cn": "死亡之王",
+      "title_en": "Nekromantik",
+      "aliases": [
+        "Nekromantik 1987"
+      ]
+    },
+    {
+      "id": "cult_090",
+      "category": "超現實／藝術邪典",
+      "title_cn": "鼴鼠",
+      "title_en": "El Topo",
+      "aliases": [
+        "鼹鼠",
+        "El Topo 1970"
+      ]
+    },
+    {
+      "id": "cult_091",
+      "category": "超現實／藝術邪典",
+      "title_cn": "聖山",
+      "title_en": "The Holy Mountain",
+      "aliases": [
+        "La montaña sagrada"
+      ]
+    },
+    {
+      "id": "cult_092",
+      "category": "超現實／藝術邪典",
+      "title_cn": "聖血",
+      "title_en": "Santa Sangre",
+      "aliases": [
+        "Santa Sangre 1989"
+      ]
+    },
+    {
+      "id": "cult_093",
+      "category": "超現實／藝術邪典",
+      "title_cn": "橡皮頭",
+      "title_en": "Eraserhead",
+      "aliases": [
+        "Eraserhead 1977"
+      ]
+    },
+    {
+      "id": "cult_094",
+      "category": "超現實／藝術邪典",
+      "title_cn": "藍絲絨",
+      "title_en": "Blue Velvet",
+      "aliases": [
+        "Blue Velvet 1986"
+      ]
+    },
+    {
+      "id": "cult_095",
+      "category": "超現實／藝術邪典",
+      "title_cn": "妖夜慌蹤",
+      "title_en": "Lost Highway",
+      "aliases": [
+        "Lost Highway 1997"
+      ]
+    },
+    {
+      "id": "cult_096",
+      "category": "超現實／藝術邪典",
+      "title_cn": "穆荷蘭大道",
+      "title_en": "Mulholland Drive",
+      "aliases": [
+        "Mulholland Dr."
+      ]
+    },
+    {
+      "id": "cult_097",
+      "category": "超現實／藝術邪典",
+      "title_cn": "錄影帶謀殺案",
+      "title_en": "Videodrome",
+      "aliases": [
+        "Videodrome 1983"
+      ]
+    },
+    {
+      "id": "cult_098",
+      "category": "超現實／藝術邪典",
+      "title_cn": "裸體午餐",
+      "title_en": "Naked Lunch",
+      "aliases": [
+        "Naked Lunch 1991"
+      ]
+    },
+    {
+      "id": "cult_099",
+      "category": "超現實／藝術邪典",
+      "title_cn": "慾望號快車",
+      "title_en": "Crash",
+      "aliases": [
+        "Crash 1996",
+        "David Cronenberg Crash"
+      ]
+    },
+    {
+      "id": "cult_100",
+      "category": "超現實／藝術邪典",
+      "title_cn": "著魔",
+      "title_en": "Possession",
+      "aliases": [
+        "Possession 1981"
+      ]
+    },
+    {
+      "id": "cult_101",
+      "category": "超現實／藝術邪典",
+      "title_cn": "受孕",
+      "title_en": "Begotten",
+      "aliases": [
+        "Begotten 1989"
+      ]
+    },
+    {
+      "id": "cult_102",
+      "category": "超現實／藝術邪典",
+      "title_cn": "洛基恐怖秀",
+      "title_en": "The Rocky Horror Picture Show",
+      "aliases": [
+        "Rocky Horror Picture Show"
+      ]
+    },
+    {
+      "id": "cult_103",
+      "category": "超現實／藝術邪典",
+      "title_cn": "異教徒",
+      "title_en": "The Wicker Man",
+      "aliases": [
+        "Wicker Man 1973"
+      ]
+    },
+    {
+      "id": "cult_104",
+      "category": "超現實／藝術邪典",
+      "title_cn": "巴西",
+      "title_en": "Brazil",
+      "aliases": [
+        "Brazil 1985"
+      ]
+    },
+    {
+      "id": "cult_105",
+      "category": "超現實／藝術邪典",
+      "title_cn": "廚師、大盜、他的太太和她的情人",
+      "title_en": "The Cook, the Thief, His Wife & Her Lover",
+      "aliases": [
+        "The Cook the Thief His Wife and Her Lover"
+      ]
+    },
+    {
+      "id": "cult_106",
+      "category": "超現實／藝術邪典",
+      "title_cn": "甜蜜電影",
+      "title_en": "Sweet Movie",
+      "aliases": [
+        "Sweet Movie 1974"
+      ]
+    },
+    {
+      "id": "cult_107",
+      "category": "超現實／藝術邪典",
+      "title_cn": "瓦萊莉和她的奇蹟一周",
+      "title_en": "Valerie and Her Week of Wonders",
+      "aliases": [
+        "Valerie a týden divů"
+      ]
+    },
+    {
+      "id": "cult_108",
+      "category": "超現實／藝術邪典",
+      "title_cn": "惡魔",
+      "title_en": "The Devils",
+      "aliases": [
+        "The Devils 1971"
+      ]
+    },
+    {
+      "id": "cult_109",
+      "category": "超現實／藝術邪典",
+      "title_cn": "石榴的顏色",
+      "title_en": "The Color of Pomegranates",
+      "aliases": [
+        "Sayat Nova"
+      ]
+    },
+    {
+      "id": "cult_110",
+      "category": "B級科幻／怪獸／怪奇喜劇",
+      "title_cn": "外太空九號計劃",
+      "title_en": "Plan 9 from Outer Space",
+      "aliases": [
+        "Plan 9"
+      ]
+    },
+    {
+      "id": "cult_111",
+      "category": "B級科幻／怪獸／怪奇喜劇",
+      "title_cn": "幽浮魔點",
+      "title_en": "The Blob",
+      "aliases": [
+        "The Blob 1958"
+      ]
+    },
+    {
+      "id": "cult_112",
+      "category": "B級科幻／怪獸／怪奇喜劇",
+      "title_cn": "恐怖小店",
+      "title_en": "The Little Shop of Horrors",
+      "aliases": [
+        "Little Shop of Horrors 1960"
+      ]
+    },
+    {
+      "id": "cult_113",
+      "category": "B級科幻／怪獸／怪奇喜劇",
+      "title_cn": "殺人番茄",
+      "title_en": "Attack of the Killer Tomatoes",
+      "aliases": [
+        "Killer Tomatoes"
+      ]
+    },
+    {
+      "id": "cult_114",
+      "category": "B級科幻／怪獸／怪奇喜劇",
+      "title_cn": "外太空殺人小丑",
+      "title_en": "Killer Klowns from Outer Space",
+      "aliases": [
+        "Killer Klowns"
+      ]
+    },
+    {
+      "id": "cult_115",
+      "category": "B級科幻／怪獸／怪奇喜劇",
+      "title_cn": "吃人爸媽",
+      "title_en": "Parents",
+      "aliases": [
+        "Parents 1989"
+      ]
+    },
+    {
+      "id": "cult_116",
+      "category": "B級科幻／怪獸／怪奇喜劇",
+      "title_cn": "怪物",
+      "title_en": "The Stuff",
+      "aliases": [
+        "The Stuff 1985"
+      ]
+    },
+    {
+      "id": "cult_117",
+      "category": "B級科幻／怪獸／怪奇喜劇",
+      "title_cn": "極度空間",
+      "title_en": "They Live",
+      "aliases": [
+        "They Live 1988"
+      ]
+    },
+    {
+      "id": "cult_118",
+      "category": "B級科幻／怪獸／怪奇喜劇",
+      "title_cn": "報信的人",
+      "title_en": "Repo Man",
+      "aliases": [
+        "Repo Man 1984"
+      ]
+    },
+    {
+      "id": "cult_119",
+      "category": "B級科幻／怪獸／怪奇喜劇",
+      "title_cn": "天降神兵",
+      "title_en": "The Adventures of Buckaroo Banzai Across the 8th Dimension",
+      "aliases": [
+        "Buckaroo Banzai"
+      ]
+    },
+    {
+      "id": "cult_120",
+      "category": "B級科幻／怪獸／怪奇喜劇",
+      "title_cn": "扎杜斯",
+      "title_en": "Zardoz",
+      "aliases": [
+        "Zardoz 1974"
+      ]
+    },
+    {
+      "id": "cult_121",
+      "category": "B級科幻／怪獸／怪奇喜劇",
+      "title_cn": "機械殺戮",
+      "title_en": "Hardware",
+      "aliases": [
+        "Hardware 1990"
+      ]
+    },
+    {
+      "id": "cult_122",
+      "category": "B級科幻／怪獸／怪奇喜劇",
+      "title_cn": "液體天空",
+      "title_en": "Liquid Sky",
+      "aliases": [
+        "Liquid Sky 1982"
+      ]
+    },
+    {
+      "id": "cult_123",
+      "category": "B級科幻／怪獸／怪奇喜劇",
+      "title_cn": "X光人",
+      "title_en": "X: The Man with the X-Ray Eyes",
+      "aliases": [
+        "X The Man with the X-Ray Eyes"
+      ]
+    },
+    {
+      "id": "cult_124",
+      "category": "歐陸極端／驚悚邪典",
+      "title_cn": "殉難者",
+      "title_en": "Martyrs",
+      "aliases": [
+        "Martyrs 2008"
+      ]
+    },
+    {
+      "id": "cult_125",
+      "category": "歐陸極端／驚悚邪典",
+      "title_cn": "身在其中",
+      "title_en": "Inside",
+      "aliases": [
+        "À l'intérieur"
+      ]
+    },
+    {
+      "id": "cult_126",
+      "category": "歐陸極端／驚悚邪典",
+      "title_cn": "高壓電",
+      "title_en": "High Tension",
+      "aliases": [
+        "Haute tension",
+        "Switchblade Romance"
+      ]
+    },
+    {
+      "id": "cult_127",
+      "category": "歐陸極端／驚悚邪典",
+      "title_cn": "鈦",
+      "title_en": "Titane",
+      "aliases": [
+        "Titane 2021"
+      ]
+    },
+    {
+      "id": "cult_128",
+      "category": "歐陸極端／驚悚邪典",
+      "title_cn": "生吃",
+      "title_en": "Raw",
+      "aliases": [
+        "Grave 2016"
+      ]
+    },
+    {
+      "id": "cult_129",
+      "category": "歐陸極端／驚悚邪典",
+      "title_cn": "不可撤銷",
+      "title_en": "Irreversible",
+      "aliases": [
+        "Irréversible"
+      ]
+    },
+    {
+      "id": "cult_130",
+      "category": "歐陸極端／驚悚邪典",
+      "title_cn": "肉體雕塑",
+      "title_en": "Taxidermia",
+      "aliases": [
+        "Taxidermia 2006"
+      ]
+    },
+    {
+      "id": "cult_131",
+      "category": "歐陸極端／驚悚邪典",
+      "title_cn": "恐懼",
+      "title_en": "Angst",
+      "aliases": [
+        "Angst 1983"
+      ]
+    },
+    {
+      "id": "cult_132",
+      "category": "歐陸極端／驚悚邪典",
+      "title_cn": "誰能殺死孩子",
+      "title_en": "Who Can Kill a Child?",
+      "aliases": [
+        "¿Quién puede matar a un niño?"
+      ]
+    },
+    {
+      "id": "cult_133",
+      "category": "歐陸極端／驚悚邪典",
+      "title_cn": "獵人之夜",
+      "title_en": "The Night of the Hunter",
+      "aliases": [
+        "Night of the Hunter 1955"
+      ]
+    },
+    {
+      "id": "cult_134",
+      "category": "歐陸極端／驚悚邪典",
+      "title_cn": "窺視狂",
+      "title_en": "Peeping Tom",
+      "aliases": [
+        "Peeping Tom 1960"
+      ]
+    },
+    {
+      "id": "cult_135",
+      "category": "歐陸極端／驚悚邪典",
+      "title_cn": "獵巫者",
+      "title_en": "Witchfinder General",
+      "aliases": [
+        "The Conqueror Worm"
+      ]
+    },
+    {
+      "id": "cult_136",
+      "category": "歐陸極端／驚悚邪典",
+      "title_cn": "撒旦的血腥利爪",
+      "title_en": "The Blood on Satan's Claw",
+      "aliases": [
+        "Blood on Satan's Claw"
+      ]
+    },
+    {
+      "id": "cult_137",
+      "category": "歐陸極端／驚悚邪典",
+      "title_cn": "狼之一族",
+      "title_en": "The Company of Wolves",
+      "aliases": [
+        "Company of Wolves 1984"
+      ]
+    },
+    {
+      "id": "cult_138",
+      "category": "歐陸極端／驚悚邪典",
+      "title_cn": "白日美人",
+      "title_en": "Belle de Jour",
+      "aliases": [
+        "Belle de Jour 1967"
+      ]
+    },
+    {
+      "id": "cult_139",
+      "category": "亞洲其他／當代Cult",
+      "title_cn": "綠色星球拯救計畫",
+      "title_en": "Save the Green Planet!",
+      "aliases": [
+        "지구를 지켜라!"
+      ]
+    },
+    {
+      "id": "cult_140",
+      "category": "亞洲其他／當代Cult",
+      "title_cn": "死不張揚離奇失魂事件",
+      "title_en": "The Quiet Family",
+      "aliases": [
+        "조용한 가족"
+      ]
+    },
+    {
+      "id": "cult_141",
+      "category": "亞洲其他／當代Cult",
+      "title_cn": "復仇",
+      "title_en": "Sympathy for Mr. Vengeance",
+      "aliases": [
+        "복수는 나의 것"
+      ]
+    },
+    {
+      "id": "cult_142",
+      "category": "亞洲其他／當代Cult",
+      "title_cn": "原罪犯",
+      "title_en": "Oldboy",
+      "aliases": [
+        "올드보이"
+      ]
+    },
+    {
+      "id": "cult_143",
+      "category": "亞洲其他／當代Cult",
+      "title_cn": "蝙蝠：血色情慾",
+      "title_en": "Thirst",
+      "aliases": [
+        "박쥐 2009"
+      ]
+    },
+    {
+      "id": "cult_144",
+      "category": "亞洲其他／當代Cult",
+      "title_cn": "哭聲",
+      "title_en": "The Wailing",
+      "aliases": [
+        "곡성"
+      ]
+    },
+    {
+      "id": "cult_145",
+      "category": "亞洲其他／當代Cult",
+      "title_cn": "看見魔鬼",
+      "title_en": "I Saw the Devil",
+      "aliases": [
+        "악마를 보았다"
+      ]
+    },
+    {
+      "id": "cult_146",
+      "category": "亞洲其他／當代Cult",
+      "title_cn": "屍速列車",
+      "title_en": "Train to Busan",
+      "aliases": [
+        "부산행"
+      ]
+    },
+    {
+      "id": "cult_147",
+      "category": "亞洲其他／當代Cult",
+      "title_cn": "哭悲",
+      "title_en": "The Sadness",
+      "aliases": [
+        "哭悲 2021"
+      ]
+    },
+    {
+      "id": "cult_148",
+      "category": "亞洲其他／當代Cult",
+      "title_cn": "見鬼",
+      "title_en": "The Eye",
+      "aliases": [
+        "見鬼 2002"
+      ]
+    },
+    {
+      "id": "cult_149",
+      "category": "亞洲其他／當代Cult",
+      "title_cn": "紅衣小女孩",
+      "title_en": "The Tag-Along",
+      "aliases": [
+        "紅衣小女孩 2015"
+      ]
+    },
+    {
+      "id": "cult_150",
+      "category": "亞洲其他／當代Cult",
+      "title_cn": "咒",
+      "title_en": "Incantation",
+      "aliases": [
+        "咒 2022"
+      ]
+    },
+    {
+      "id": "cult_151",
+      "category": "亞洲其他／當代Cult",
+      "title_cn": "靈媒",
+      "title_en": "The Medium",
+      "aliases": [
+        "ร่างทรง"
+      ]
+    },
+    {
+      "id": "cult_152",
+      "category": "亞洲其他／當代Cult",
+      "title_cn": "鬼影",
+      "title_en": "Shutter",
+      "aliases": [
+        "ชัตเตอร์ กดติดวิญญาณ"
+      ]
+    },
+    {
+      "id": "cult_153",
+      "category": "亞洲其他／當代Cult",
+      "title_cn": "亡界之門",
+      "title_en": "Tumbbad",
+      "aliases": [
+        "Tumbbad 2018"
+      ]
+    },
+    {
+      "id": "cult_154",
+      "category": "亞洲其他／當代Cult",
+      "title_cn": "午夜凶鈴",
+      "title_en": "Ring",
+      "aliases": [
+        "リング",
+        "Ringu"
+      ]
+    },
+    {
+      "id": "cult_155",
+      "category": "亞洲其他／當代Cult",
+      "title_cn": "咒怨2",
+      "title_en": "Ju-on: The Grudge 2",
+      "aliases": [
+        "呪怨2"
+      ]
+    },
+    {
+      "id": "cult_156",
+      "category": "亞洲其他／當代Cult",
+      "title_cn": "咒怨錄影帶2",
+      "title_en": "Ju-on: The Curse 2",
+      "aliases": [
+        "呪怨2 ビデオ版"
+      ]
+    }
+  ],
+  "reference_sites": [
+    {
+      "site": "ARROW",
+      "url": "https://www.arrowvideochannel.com/",
+      "note": "正版 Cult 电影专题，会员观看，非 TVBox CMS"
+    },
+    {
+      "site": "MUBI Cult",
+      "url": "https://mubi.com/en/browse/genre/cult",
+      "note": "电影专题/地区供应情况，非 TVBox CMS"
+    },
+    {
+      "site": "Criterion Cult",
+      "url": "https://www.criterion.com/shop/collection/1-cult-movies",
+      "note": "发行/策展参考，不等于实时流媒体可看"
+    },
+    {
+      "site": "BFI Cult",
+      "url": "https://player.bfi.org.uk/subscription/collection/cult-movies",
+      "note": "会员影片专题，非 TVBox CMS"
+    }
+  ]
+}
