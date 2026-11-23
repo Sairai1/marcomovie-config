@@ -2,6 +2,15 @@
   "spider": "",
   "sites": [
     {
+      "key": "marco_archive",
+      "name": "🎞️ MarcoArchive｜Internet Archive 影片搜尋（原站核實）",
+      "type": 1,
+      "api": "https://marcomovie-config.guochuwei0913.workers.dev/api.php/archive/vod/",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    },
+    {
       "key": "marco_search_1",
       "name": "🔍 MarcoSearch 1｜跨站搜索（17源）",
       "type": 1,
