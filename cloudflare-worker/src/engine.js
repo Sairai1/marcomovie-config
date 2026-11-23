@@ -24,10 +24,13 @@ export function safeSite(site){
 function timeoutPromise(ms){
   const ctrl=new AbortController();
   const timer=setTimeout(()=>ctrl.abort(),ms);
-  return {signal:ctrl.signal,clear:()=>clearTimeout(timer)};
+  return {controller:ctrl,signal:ctrl.signal,clear:()=>clearTimeout(timer)};
 }
-async function fetchText(url,fetcher,timeout,maxBytes=900000){
+async function fetchText(url,fetcher,timeout,maxBytes=900000,upstreamSignal=null){
   const a=timeoutPromise(timeout);
+  const abortFromCaller=()=>a.controller.abort();
+  if(upstreamSignal?.aborted)abortFromCaller();
+  else upstreamSignal?.addEventListener("abort",abortFromCaller,{once:true});
   try{
     const response=await fetcher(url,{signal:a.signal,redirect:"manual",headers:{Accept:"application/json, text/xml, */*"}});
     if(!response.ok)throw Error("http_"+response.status);
@@ -35,7 +38,10 @@ async function fetchText(url,fetcher,timeout,maxBytes=900000){
     const value=await response.text();
     if(value.length>maxBytes)throw Error("too_large");
     return value;
-  }finally{a.clear();}
+  }finally{
+    upstreamSignal?.removeEventListener("abort",abortFromCaller);
+    a.clear();
+  }
 }
 export async function loadData(fetcher=fetch,options={}){
   const now=Date.now();
@@ -256,33 +262,124 @@ export async function search(term,page,data,opts={}){
     page:p,pagecount:pages,sourceCount:diagnostics.length,
     matchCount:matches.length,diagnostics};
 }
-export async function details(encoded,data,fetcher=fetch){
-  const refs=decodeId(encoded);
-  const sites=new Map(data.sites.map(s=>[s.key,s]));
-  const obtained=await Promise.all(refs.map(async ref=>{
-    const site=sites.get(ref.k);if(!site)return null;
-    const url=new URL(site.api);
-    url.searchParams.set("ac","detail");
-    url.searchParams.set("ids",ref.id);
-    try{
-      const list=parseCms(await fetchText(url.toString(),fetcher,3400));
-      const found=list.find(x=>x.vod_id===ref.id)||list[0];
-      return found?{site,item:found}:null;
-    }catch{return null;}
-  }));
-  const valid=obtained.filter(Boolean);if(!valid.length)return [];
-  const froms=[],urls=[];
-  for(const {site,item} of valid){
-    const names=String(item.vod_play_from||"").split("$$$");
-    const plays=String(item.vod_play_url||"").split("$$$");
-    for(let i=0;i<plays.length;i++){
-      if(!plays[i]||!plays[i].includes("$"))continue;
-      froms.push((site.name||site.key).slice(0,30)+" · "+(names[i]||"线"+(i+1)));
-      urls.push(plays[i]);
+
+// Cloudflare isolates retain this small best-effort speed table between requests.
+// It prioritizes faster CMS detail providers without affecting source discovery.
+const detailStats=new Map();
+function speedScore(key){
+  const rec=detailStats.get(key);
+  return rec ? rec.ms+rec.failures*1100 : 1800;
+}
+function recordDetailSpeed(key,ms,usable){
+  const previous=detailStats.get(key);
+  const next={ms:previous?Math.round(previous.ms*0.65+ms*0.35):ms,
+    failures:usable?0:Math.min(4,(previous?.failures||0)+1)};
+  if(detailStats.size>=100&&!detailStats.has(key))
+    detailStats.delete(detailStats.keys().next().value);
+  detailStats.set(key,next);
+}
+function playableLines(item){
+  const names=String(item?.vod_play_from||"").split("$$$");
+  const chunks=String(item?.vod_play_url||"").split("$$$");
+  const entries=[];
+  for(let i=0;i<chunks.length;i++){
+    // Never advertise an empty or placeholder CMS episode URL as playable.
+    if(!chunks[i]||!/(?:^|#)[^#$]+\$[^#$]+/.test(chunks[i]))continue;
+    entries.push({name:names[i]||"线路"+(i+1),url:chunks[i]});
+  }
+  return entries;
+}
+function combineDetails(obtained,encoded){
+  const usable=obtained.filter(Boolean);
+  if(!usable.length)return [];
+  // Playable response owns title/metadata; never choose an empty-feed response
+  // in preference to an already usable source.
+  const primary=usable.find(x=>playableLines(x.item).length)||usable[0];
+  const lines=[];
+  const keys=new Set();
+  for(const {site,item} of usable){
+    for(const line of playableLines(item)){
+      const key=site.key+"|"+line.url;
+      if(keys.has(key))continue;
+      keys.add(key);
+      lines.push({name:(site.name||site.key).slice(0,30)+" · "+line.name,
+        url:line.url});
     }
   }
-  return [{...valid[0].item,vod_id:encoded,vod_play_from:froms.join("$$$"),
-    vod_play_url:urls.join("$$$"),vod_remarks:valid.length+" 个来源"}];
+  return [{...primary.item,vod_id:encoded,
+    vod_play_from:lines.map(x=>x.name).join("$$$"),
+    vod_play_url:lines.map(x=>x.url).join("$$$"),
+    vod_remarks:usable.length+" 个来源 · "+lines.length+" 条播放线路"}];
+}
+
+/**
+ * First-play latency optimisation:
+ * - Fire at most 5 upstream CMS detail requests in parallel.
+ * - After the first usable playback URL, collect other fast responses
+ *   for a short grace period; cancel stragglers immediately afterwards.
+ * - When none has playback, retain the full timeout fallback so a slow,
+ *   usable upstream is not discarded.
+ * - ?full=1 can opt into waiting for every source for troubleshooting.
+ *
+ * This reduces detail API TTFB only; media stream throughput is unchanged.
+ */
+export async function details(encoded,data,fetcher=fetch,options={}){
+  const refs=decodeId(encoded);
+  const sites=new Map(data.sites.map(s=>[s.key,s]));
+  const candidates=refs.map(ref=>({...ref,site:sites.get(ref.k)}))
+    .filter(x=>x.site);
+  if(!candidates.length)return [];
+  const complete=options.full===true;
+  const timeout=Math.max(100,Math.min(4500,Number(options.timeoutMs)||3400));
+  const grace=Math.max(0,Math.min(800,Number(options.graceMs)??260));
+  // Learned speed only affects the order of backup lines; all sources start
+  // in parallel so even an unknown/slow site can win if it responds first.
+  candidates.sort((a,b)=>speedScore(a.k)-speedScore(b.k));
+  const controllers=candidates.map(()=>new AbortController());
+  const obtained=new Array(candidates.length).fill(null);
+  let closed=false,hasPlayback=false,completed=0;
+  let firstReady;
+  const firstPromise=new Promise(resolve=>{firstReady=resolve;});
+  const tasks=candidates.map(({site,id,k},i)=>(async()=>{
+    const start=Date.now();
+    const url=new URL(site.api);
+    url.searchParams.set("ac","detail");
+    url.searchParams.set("ids",id);
+    let usable=false;
+    try{
+      const parsed=parseCms(await fetchText(url.toString(),fetcher,timeout,900000,controllers[i].signal));
+      const chosen=parsed.find(item=>item.vod_id===id)||
+        (parsed.length===1?parsed[0]:null);
+      if(chosen&&!closed){
+        const entry={site,item:chosen};
+        obtained[i]=entry;
+        usable=playableLines(chosen).length>0;
+        if(usable&&!hasPlayback){hasPlayback=true;firstReady();}
+      }
+    }catch{
+      // Broken provider is not fatal if any other provider has playback.
+    }finally{
+      if(!closed)recordDetailSpeed(k,Date.now()-start,usable);
+      completed++;
+    }
+  })());
+  const allDone=Promise.all(tasks);
+  if(complete){
+    await allDone;
+  }else{
+    await Promise.race([allDone,firstPromise]);
+    if(hasPlayback&&completed<candidates.length&&grace>0){
+      // Hold briefly for a second fast line rather than blocking on the
+      // slowest CMS for 3.4 s. Timer is cleared if all remaining settle.
+      await new Promise(resolve=>{
+        const timer=setTimeout(resolve,grace);
+        allDone.then(()=>{clearTimeout(timer);resolve();});
+      });
+    }
+    closed=true;
+    for(const controller of controllers)if(!controller.signal.aborted)controller.abort();
+  }
+  return combineDetails(obtained,encoded);
 }
 export function home(){
   return {code:1,msg:"MarcoSearch Workers — 搜索任何影视标题",
