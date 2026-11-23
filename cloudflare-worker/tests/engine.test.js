@@ -223,6 +223,9 @@ test("Metadata detail never fabricates video playback",async()=>{
 test("Shard and discovery adapters are excluded to avoid recursive CMS calls",()=>{
  assert.equal(safeSite({...site("first"),key:"marco_search_1"}),false);
  assert.equal(safeSite({...site("first"),key:"marco_discover"}),false);
+ assert.equal(safeSite({...site("first"),key:"marco_archive"}),false);
+ assert.equal(safeSite({...site("first"),key:"marco_pansou"}),false);
+ assert.equal(safeSite({...site("first"),key:"marco_watchmode"}),false);
 });
 test("Three CMS shard routes accept the same MacCMS search parameters",async()=>{
  const mock=globalThis.fetch;
