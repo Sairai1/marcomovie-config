@@ -360,3 +360,109 @@ test("External search routes accept MacCMS ac/detail and truthfully show unconfi
    }
  }finally{globalThis.fetch=original;}
 });
+
+
+test("Fast detail path returns usable playback before a slow CMS and retains quick backups",async()=>{
+ const entries=[site("first"),site("second"),site("third")];
+ const encoded=encodeId(entries.map((s,i)=>({k:s.key,id:String(i+1)})));
+ const delays={first:35,second:95,third:1200};
+ const aborted=[];
+ const fetcher=(url,{signal})=>{
+   const host=new URL(url).hostname.split(".")[0];
+   const index=entries.findIndex(x=>x.key===host);
+   return new Promise((resolve,reject)=>{
+     const timer=setTimeout(()=>resolve(ok({list:[{
+       vod_id:String(index+1),vod_name:"测试电影",vod_play_from:"m3u8",
+       vod_play_url:"正片$https://"+host+".example.org/film.m3u8"}]})),delays[host]);
+     signal.addEventListener("abort",()=>{
+       clearTimeout(timer);aborted.push(host);reject(new Error("aborted"));
+     },{once:true});
+   });
+ };
+ const start=Date.now();
+ const found=await details(encoded,{sites:entries},fetcher,{graceMs:130,timeoutMs:1900});
+ const elapsed=Date.now()-start;
+ assert(elapsed<800,"Early detail should not wait for 1200ms slow source: "+elapsed);
+ assert.equal(found.length,1);
+ assert.match(found[0].vod_play_url,/first\.example\.org/);
+ assert.match(found[0].vod_play_url,/second\.example\.org/);
+ assert(!found[0].vod_play_url.includes("third.example.org"));
+ assert.match(found[0].vod_play_from,/测试-first/);
+ assert(aborted.includes("third"),"Slow request should be cancelled");
+});
+test("When first CMS is metadata-only, details wait for an actual playable backup",async()=>{
+ const entries=[site("first"),site("second")];
+ const encoded=encodeId([{k:"first",id:"1"},{k:"second",id:"2"}]);
+ const fetcher=(url,{signal})=>{
+   const host=new URL(url).hostname.split(".")[0];
+   const delay=host==="first"?15:150;
+   return new Promise((resolve,reject)=>{
+     const timer=setTimeout(()=>resolve(ok({list:[{
+       vod_id:host==="first"?"1":"2",vod_name:host==="first"?"非播放条目":"可播放条目",
+       vod_play_from:"web",vod_play_url:host==="first"?"":"全集$https://second.example.org/video.m3u8"
+     }]})),delay);
+     signal.addEventListener("abort",()=>{clearTimeout(timer);reject(Error("aborted"));},{once:true});
+   });
+ };
+ const start=Date.now();
+ const result=await details(encoded,{sites:entries},fetcher,{graceMs:40,timeoutMs:1000});
+ assert(Date.now()-start>=100,"Should wait for the second playable source");
+ assert.equal(result[0].vod_name,"可播放条目");
+ assert.match(result[0].vod_play_url,/second\.example\.org/);
+ assert(!result[0].vod_play_from.includes("测试-first"));
+});
+test("When no source has playable episodes, retain metadata fallback",async()=>{
+ const encoded=encodeId([{k:"first",id:"100"},{k:"second",id:"101"}]);
+ const data={sites:[site("first"),site("second")]};
+ const fetcher=async url=>{
+   const host=new URL(url).hostname.split(".")[0];
+   return ok({list:[{vod_id:host==="first"?"100":"101",vod_name:"电影无线路",
+     vod_play_url:"",vod_play_from:""}]});
+ };
+ const found=await details(encoded,data,fetcher,{graceMs:20});
+ assert.equal(found.length,1);
+ assert.equal(found[0].vod_play_url,"");
+});
+test("Full-detail troubleshooting mode waits for all backup sources",async()=>{
+ const encoded=encodeId([{k:"first",id:"1"},{k:"second",id:"2"}]);
+ const data={sites:[site("first"),site("second")]};
+ const fetcher=(url,opts)=>{
+   const host=new URL(url).hostname.split(".")[0],delay=host==="first"?20:230;
+   return new Promise(resolve=>setTimeout(()=>resolve(ok({list:[{
+     vod_id:host==="first"?"1":"2",vod_name:"多线路测试",
+     vod_play_from:"hls",vod_play_url:"第一集$https://"+host+".example.org/play.m3u8"
+   }]})),delay));
+ };
+ const start=Date.now();
+ const found=await details(encoded,data,fetcher,{full:true,graceMs:30,timeoutMs:1000});
+ assert(Date.now()-start>=190);
+ assert.match(found[0].vod_play_url,/first.example.org/);
+ assert.match(found[0].vod_play_url,/second.example.org/);
+});
+test("Cold detail requests use bundled CMS map without querying GitHub Raw",async()=>{
+ const {fastDetailData}=await import("../src/engine.js");
+ const id=encodeId([{k:"vod_360",id:"test-fast-cold-1"}]);
+ assert(fastDetailData(id)?.sites.some(x=>x.key==="vod_360"));
+ assert.equal(fastDetailData(encodeId([{k:"not_known",id:"foo"}])),null);
+ const oldFetch=globalThis.fetch;
+ let cmsCalls=0,configCalls=0;
+ globalThis.fetch=async url=>{
+   const u=new URL(url);
+   if(u.hostname==="raw.githubusercontent.com"){configCalls++;throw Error("config unavailable");}
+   if(u.hostname==="360zy.com"){
+     cmsCalls++;
+     return ok({list:[{vod_id:"test-fast-cold-1",vod_name:"快速测试电影",
+       vod_play_from:"hls",vod_play_url:"影片$https://video.example.net/a.m3u8"}]});
+   }
+   throw Error("unexpected URL "+url);
+ };
+ try{
+   const r=await worker.fetch(new Request("https://unit.test/api.php/provide/vod/shard/2/?ac=detail&ids="+
+     encodeURIComponent(id)),{DETAIL_BACKUP_GRACE_MS:"20"});
+   const j=await r.json();
+   assert.equal(r.status,200);
+   assert.equal(cmsCalls,1);
+   assert.equal(configCalls,0);
+   assert.match(j.list[0].vod_play_url,/video.example.net/);
+ }finally{globalThis.fetch=oldFetch;}
+});
