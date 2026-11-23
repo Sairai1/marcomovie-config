@@ -2,6 +2,42 @@
   "spider": "",
   "sites": [
     {
+      "key": "marco_search_1",
+      "name": "🔍 MarcoSearch 1｜跨站搜索（17源）",
+      "type": 1,
+      "api": "https://marcomovie-config.guochuwei0913.workers.dev/api.php/provide/vod/shard/1/",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    },
+    {
+      "key": "marco_search_2",
+      "name": "🔍 MarcoSearch 2｜跨站搜索（17源）",
+      "type": 1,
+      "api": "https://marcomovie-config.guochuwei0913.workers.dev/api.php/provide/vod/shard/2/",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    },
+    {
+      "key": "marco_search_3",
+      "name": "🔍 MarcoSearch 3｜跨站搜索（17源）",
+      "type": 1,
+      "api": "https://marcomovie-config.guochuwei0913.workers.dev/api.php/provide/vod/shard/3/",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    },
+    {
+      "key": "marco_discover",
+      "name": "🌐 MarcoDiscover｜全球影片资料检索（非播放源）",
+      "type": 1,
+      "api": "https://marcomovie-config.guochuwei0913.workers.dev/api.php/discover/vod/",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    },
+    {
       "key": "marco_search",
       "name": "🔎 MarcoSearch｜跨片源聚合搜尋",
       "type": 1,
