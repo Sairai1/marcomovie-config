@@ -466,3 +466,23 @@ test("Cold detail requests use bundled CMS map without querying GitHub Raw",asyn
    assert.match(j.list[0].vod_play_url,/video.example.net/);
  }finally{globalThis.fetch=oldFetch;}
 });
+
+
+test("Fastest responding playable CMS is first in the iOS playback line list",async()=>{
+ const id=encodeId([{k:"first",id:"1"},{k:"second",id:"2"}]);
+ const fetcher=(url,{signal})=>{
+   const host=new URL(url).hostname.split(".")[0];
+   return new Promise((resolve,reject)=>{
+     const timer=setTimeout(()=>resolve(ok({list:[{
+       vod_id:host==="first"?"1":"2",vod_name:"播放優先順序",
+       vod_play_from:"hls",vod_play_url:"影片$https://"+host+".example.org/master.m3u8"
+     }]})),host==="first"?135:20);
+     signal.addEventListener("abort",()=>{clearTimeout(timer);reject(Error("cancelled"));},{once:true});
+   });
+ };
+ const video=await details(id,{sites:[site("first"),site("second")]},fetcher,
+   {graceMs:175,timeoutMs:1000});
+ assert.equal(video.length,1);
+ assert.match(video[0].vod_play_from.split("$$$")[0],/second/);
+ assert.match(video[0].vod_play_url.split("$$$")[0],/second\.example\.org/);
+});
