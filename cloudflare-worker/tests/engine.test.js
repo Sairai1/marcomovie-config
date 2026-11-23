@@ -64,7 +64,8 @@ test("Search executes live CMS lookups and reports source pages",async()=>{
 });
 test("Standard CMS fallback attempts ac=videolist if ac=detail returned empty",async()=>{
  let calls=0;
- const fetcher=async url=>{
+ const fetcher=async (url,opts)=>{
+  assert.equal(opts.redirect,"manual");
   ++calls;
   return ok({list:new URL(url).searchParams.get("ac")==="videolist"?
     [{vod_id:"123",vod_name:"未知新电影"}]:[]});
@@ -84,7 +85,7 @@ test("Detail loads original playback URL without proxying media",async()=>{
 });
 test("Load config removes circular self-source",async()=>{
  const config={sites:[site("first"),{...site("second"),key:"marco_search"}]};
- const mock=async url=>ok(url.endsWith("all.json")?config:{films:[film]});
+ const mock=async (url,opts)=>{assert.equal(opts.redirect,"manual");return ok(url.endsWith("all.json")?config:{films:[film]});};
  const data=await loadData(mock,{noCache:true,configUrl:"https://example.org/all.json",
    catalogUrl:"https://example.org/cult.json"});
  assert.equal(data.sites.length,1);
