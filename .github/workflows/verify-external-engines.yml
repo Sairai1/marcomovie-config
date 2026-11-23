@@ -25,10 +25,10 @@ jobs:
               try:
                   health=query("/health",10)
                   print("WORKER",health.get("version"),"attempt",attempt,flush=True)
-                  if health.get("version")=="1.2.0":break
+                  if health.get("version")=="1.3.0":break
               except Exception as e:print("Health error:",e,flush=True)
               time.sleep(6)
-          else:raise AssertionError("New Worker version 1.2.0 not deployed")
+          else:raise AssertionError("New Worker version 1.3.0 not deployed")
           for kind in ("pansou","watchmode"):
               u="/api.php/"+kind+"/vod/?"+urllib.parse.urlencode({"ac":"detail","wd":"Night of the Living Dead"})
               d=query(u)
