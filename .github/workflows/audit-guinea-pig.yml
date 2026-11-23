@@ -1,0 +1,45 @@
+name: Audit Guinea Pig six-film discovery
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/audit-guinea-pig.yml'
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Run read-only multi-page title audit against live MarcoSearch
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import urllib.request, urllib.parse, urllib.error, json, time, re
+          base='https://marcomovie-config.guochuwei0913.workers.dev/api.php/provide/vod/'
+          titles=['豚鼠','恶魔实验','血肉之花','他不会死','下水道的美人鱼','圣母机器人','恶魔女医生']
+          aliases=['Devil\'s Experiment','Flower of Flesh and Blood','He Never Dies','Mermaid in a Manhole','Android of Notre Dame','Devil Woman Doctor']
+          results={}
+          for title in titles:
+              hits=[]; scanned=0; status={}
+              for page in range(1,5):
+                  url=base+'?'+urllib.parse.urlencode({'ac':'detail','wd':title,'pg':page})
+                  try:
+                      req=urllib.request.Request(url,headers={'User-Agent':'MarcoSearch-CoverageAudit/1.0','Accept':'application/json'})
+                      with urllib.request.urlopen(req,timeout=27) as r: out=json.loads(r.read(1300000).decode())
+                      items=out.get('list',[])
+                      info=out.get('search_info',{})
+                      scanned+=info.get('scanned',0)
+                      for s in info.get('source_diagnostics',[]): status[s.get('status','unknown')]=status.get(s.get('status','unknown'),0)+1
+                      hits.extend({'name':i.get('vod_name',''),'year':i.get('vod_year',''),'id':i.get('vod_id',''),'remarks':i.get('vod_remarks','')} for i in items)
+                      print('PAGE',repr(title),page,'items=',len(items),'scanned=',info.get('scanned'),'source_status=',{k:v for k,v in status.items()},flush=True)
+                  except Exception as e: print('FAILED',repr(title),page,type(e).__name__,str(e),flush=True)
+              results[title]={'scanned':scanned,'hits':hits}
+              print('TITLE',repr(title),'total=',len(hits),'sample=',[x['name'] for x in hits[:12]],flush=True)
+          for title in aliases:
+              url=base+'?'+urllib.parse.urlencode({'ac':'detail','wd':title,'pg':1})
+              try:
+                  with urllib.request.urlopen(url,timeout=27) as r: out=json.loads(r.read(1300000).decode())
+                  print('ALIAS',repr(title),'hits=',len(out.get('list',[])),'names=',[x.get('vod_name') for x in out.get('list',[])[:10]],flush=True)
+              except Exception as e: print('ALIAS FAILED',repr(title),str(e),flush=True)
+          print('COVERAGE SUMMARY',flush=True)
+          for k,v in results.items(): print(repr(k),'seen',len(v['hits']),'from',v['scanned'],'site queries',flush=True)
+          PY
