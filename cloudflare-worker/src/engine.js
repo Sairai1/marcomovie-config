@@ -331,7 +331,7 @@ export async function details(encoded,data,fetcher=fetch,options={}){
   if(!candidates.length)return [];
   const complete=options.full===true;
   const timeout=Math.max(100,Math.min(4500,Number(options.timeoutMs)||3400));
-  const grace=Math.max(0,Math.min(800,Number(options.graceMs)??260));
+  const grace=Math.max(0,Math.min(800,options.graceMs===undefined?260:Number(options.graceMs)));
   // Learned speed only affects the order of backup lines; all sources start
   // in parallel so even an unknown/slow site can win if it responds first.
   candidates.sort((a,b)=>speedScore(a.k)-speedScore(b.k));
