@@ -181,3 +181,71 @@ test("Original Japanese six-film searches reject American Guinea Pig and compila
  const series=await cmsSearch(site("first"),expandTerms("豚鼠",new Map()),mock);
  assert.deepEqual(series.items.map(x=>x.vod_id),["2"]);
 });
+
+
+test("Discovery sources perform live Wikidata, Apple and TVmaze queries (no API key)",async()=>{
+ const {discoverSearch}=await import("../src/discovery.js");
+ const mock=async url=>{
+   const u=new URL(url);
+   if(u.hostname==="www.wikidata.org")return ok({search:[
+     {id:"Q100",label:"Guinea Pig: Devil's Experiment",description:"1985 Japanese horror film"},
+     {id:"Q101",label:"guinea pig",description:"species of rodent"}]});
+   if(u.hostname==="itunes.apple.com")return ok({resultCount:1,results:[
+     {trackId:10001,trackName:"Guinea Pig: Devil's Experiment",kind:"feature-movie",wrapperType:"track",
+       releaseDate:"1985-01-01",trackViewUrl:"https://itunes.apple.com/movie/id10001"}]});
+   if(u.hostname==="api.tvmaze.com")return ok([{show:{
+     id:123,name:"Guinea Pig: The Show",premiered:"2009-01-01",
+     url:"https://www.tvmaze.com/shows/123",summary:"<p>TV series</p>"}}]);
+   throw new Error("Unexpected "+url);
+ };
+ const aliases=new Map([["恶魔实验",["恶魔实验","Guinea Pig: Devil's Experiment","ギニーピッグ 悪魔の実験"]]]);
+ const r=await discoverSearch("恶魔实验",{aliases},{fetcher:mock});
+ assert.equal(r.engines,6);
+ assert.equal(r.diagnostics.length,6);
+ assert(r.list.some(x=>x.vod_name==="Guinea Pig: Devil's Experiment"));
+ assert(!r.list.some(x=>x.vod_name==="guinea pig"));
+ for(const item of r.list){
+   assert.equal(item.vod_play_url,"");
+   assert.match(item.vod_remarks,/非播放源/);
+ }
+});
+test("Metadata detail never fabricates video playback",async()=>{
+ const {discoverDetail}=await import("../src/discovery.js");
+ const mock=async()=>ok({entities:{Q100:{labels:{en:{value:"Guinea Pig: Devil's Experiment"}},
+   descriptions:{en:{value:"1985 Japanese horror film"}}}}});
+ const data=await discoverDetail("md1_wd_Q100",mock);
+ assert.equal(data[0].vod_name,"Guinea Pig: Devil's Experiment");
+ assert.equal(data[0].vod_play_url,"");
+ assert.match(data[0].vod_content,/wikidata.org\/wiki\/Q100/);
+ const bad=await discoverDetail("md1_wd_Q100%2F..",mock);
+ assert.equal(bad.length,0);
+});
+test("Shard and discovery adapters are excluded to avoid recursive CMS calls",()=>{
+ assert.equal(safeSite({...site("first"),key:"marco_search_1"}),false);
+ assert.equal(safeSite({...site("first"),key:"marco_discover"}),false);
+});
+test("Three CMS shard routes accept the same MacCMS search parameters",async()=>{
+ const mock=globalThis.fetch;
+ const called=[];
+ globalThis.fetch=async url=>{
+   const u=new URL(url);called.push(u.toString());
+   if(u.pathname.endsWith("all.json"))return ok({sites:[site("first")]});
+   if(u.pathname.endsWith("cult-films.json"))return ok({films:[]});
+   if(u.hostname==="first.example.org")return ok({list:[{vod_id:1,vod_name:"银河"}]});
+   throw new Error("unexpected "+url);
+ };
+ try{
+   for(const shard of [1,2,3]){
+     const r=await worker.fetch(new Request("https://unit.test/api.php/provide/vod/shard/"+shard+"/?ac=detail&wd=银河"));
+     assert.equal(r.status,200);
+     const d=await r.json();
+     assert.equal(d.search_info.search_shard,shard);
+     assert.equal(d.pagecount,1);
+   }
+ }finally{globalThis.fetch=mock;}
+});
+test("Independent discovery engine has TVBox-compatible home and search",async()=>{
+ const r=await worker.fetch(new Request("https://unit.test/api.php/discover/vod/?ac=list"));
+ assert.equal(r.status,200);
+ assert.match((await r.json()).msg,/非内置播放|无内置播放/);
+});
