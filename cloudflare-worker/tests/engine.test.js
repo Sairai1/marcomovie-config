@@ -166,3 +166,18 @@ test("Search results omit full upstream content and raw playback data",()=>{
  assert.equal(docs[0].vod_play_url,undefined);
  assert.equal(docs[0].vod_down_url,undefined);
 });
+
+test("Original Japanese six-film searches reject American Guinea Pig and compilation releases",async()=>{
+ const {cmsSearch}=await import("../src/engine.js");
+ const payload={list:[
+  {vod_id:1,vod_name:"美国豚鼠",vod_sub:"血肉之花"},
+  {vod_id:2,vod_name:"豚鼠：血肉之花"},
+  {vod_id:3,vod_name:"豚鼠系列之惨杀特别篇"},
+  {vod_id:4,vod_name:"豚鼠特攻队"}
+ ]};
+ const mock=async()=>ok(payload);
+ const film=await cmsSearch(site("first"),["血肉之花"],mock);
+ assert.deepEqual(film.items.map(x=>x.vod_id),["2"]);
+ const series=await cmsSearch(site("first"),expandTerms("豚鼠",new Map()),mock);
+ assert.deepEqual(series.items.map(x=>x.vod_id),["2"]);
+});
