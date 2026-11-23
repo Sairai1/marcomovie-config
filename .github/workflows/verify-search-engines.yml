@@ -1,0 +1,55 @@
+name: Verify MarcoSearch 1.1 search engines
+on:
+  push:
+    paths:
+      - '.github/workflows/verify-search-engines.yml'
+  workflow_dispatch:
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Check deployed engine routes and metadata providers
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json,time,urllib.request,urllib.parse,urllib.error
+          root='https://marcomovie-config.guochuwei0913.workers.dev'
+          def get(path,timeout=25):
+            req=urllib.request.Request(root+path,headers={'user-agent':'MarcoSearch-EngineVerification/1.1','accept':'application/json'})
+            with urllib.request.urlopen(req,timeout=timeout) as r:
+              assert r.status==200, (path,r.status)
+              data=json.loads(r.read(350000).decode('utf-8'))
+            return data
+          # Cloudflare GitHub Builds is async. We require v1.1.0, not an old worker.
+          for i in range(24):
+            try:
+              h=get('/health')
+              print('Version:',h.get('version'),flush=True)
+              if h.get('version')=='1.1.0':break
+            except Exception as e: print('health error',str(e),flush=True)
+            time.sleep(5)
+          else:raise AssertionError('Version 1.1.0 not deployed to Cloudflare')
+          for n in (1,2,3):
+            path='/api.php/provide/vod/shard/'+str(n)+'/?'+urllib.parse.urlencode({'ac':'detail','wd':'铁男'})
+            d=get(path,40)
+            info=d.get('search_info',{})
+            print('SHARD',n,'scan=',info.get('scanned'),'count=',len(d.get('list',[])),'pagecount=',d.get('pagecount'),flush=True)
+            assert d.get('code')==1
+            assert info.get('search_shard')==n
+            assert info.get('scanned',0)>=1
+            assert d.get('pagecount')==1
+          for kw in ('The Matrix','Guinea Pig'):
+            path='/api.php/discover/vod/?'+urllib.parse.urlencode({'ac':'detail','wd':kw})
+            d=get(path,35)
+            info=d.get('search_info',{})
+            print('DISCOVER',kw,'results=',len(d.get('list',[])),'status=',info.get('source_diagnostics'),flush=True)
+            assert d.get('code')==1
+            assert info.get('kind')=='metadata_only'
+            assert info.get('engines',0)>=6
+            assert len(info.get('source_diagnostics',[]))>=6
+            for movie in d.get('list',[]):
+              assert not movie.get('vod_play_url')
+              assert '非播放源' in movie.get('vod_remarks','')
+          print('VERIFIED: 3 live CMS shard engines + real independent catalogue search API',flush=True)
+          PY
