@@ -1,0 +1,52 @@
+name: Verify MarcoSearch v1.2 external providers
+on:
+  push:
+    paths:
+      - '.github/workflows/verify-external-engines.yml'
+  workflow_dispatch:
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Probe public Worker live archive lookup and disabled adapters
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import time,json,urllib.parse,urllib.request,urllib.error
+          root="https://marcomovie-config.guochuwei0913.workers.dev"
+          def query(path,timeout=20):
+              req=urllib.request.Request(root+path,headers={
+                "User-Agent":"MarcoSearch-External-Probe/1.2","Accept":"application/json"})
+              with urllib.request.urlopen(req,timeout=timeout) as r:
+                  assert r.status==200,(path,r.status)
+                  return json.loads(r.read(500000).decode("utf-8"))
+          for attempt in range(1,16):
+              try:
+                  health=query("/health",10)
+                  print("WORKER",health.get("version"),"attempt",attempt,flush=True)
+                  if health.get("version")=="1.2.0":break
+              except Exception as e:print("Health error:",e,flush=True)
+              time.sleep(6)
+          else:raise AssertionError("New Worker version 1.2.0 not deployed")
+          for kind in ("pansou","watchmode"):
+              u="/api.php/"+kind+"/vod/?"+urllib.parse.urlencode({"ac":"detail","wd":"Night of the Living Dead"})
+              d=query(u)
+              print("OPTIONAL",kind,d.get("search_info",{}).get("status"),len(d.get("list",[])),flush=True)
+              assert d.get("search_info",{}).get("status")=="not_configured"
+              assert not d.get("list")
+          for title in ("Night of the Living Dead","Nosferatu"):
+              u="/api.php/archive/vod/?"+urllib.parse.urlencode({"ac":"detail","wd":title})
+              d=query(u,35)
+              info=d.get("search_info",{})
+              names=[x.get("vod_name","") for x in d.get("list",[])][:15]
+              print("ARCHIVE",title,"status",info.get("source_diagnostics"),"results",names,flush=True)
+              assert d.get("code")==1
+              assert info.get("kind")=="archive_item"
+              assert all(not x.get("vod_play_url") for x in d.get("list",[]))
+              if names and info.get("source_diagnostics",[{}])[0].get("status")=="ok":
+                  print("LIVE ARCHIVE SEARCH SUCCESS",len(names),flush=True)
+                  break
+          else:
+              raise AssertionError("Archive API unavailable or zero matching titles")
+          PY
