@@ -1,4 +1,4 @@
-import {loadData,search,details,home} from "./engine.js";
+import {loadData,fastDetailData,search,details,home} from "./engine.js";
 import {discoverSearch,discoverDetail} from "./discovery.js";
 import {archiveSearch,archiveDetail,panSouSearch,panSouDetail,watchmodeSearch,watchmodeDetail,externalHome} from "./external-engines.js";
 
@@ -85,7 +85,9 @@ async function handle(request,env={}){
   const hit=fromMemory(key);
   if(hit)return response(hit,200,20);
   try{
-    const data=await loadData();
+    // Most CMS detail requests can resolve sites from the bundled snapshot.
+    // Avoid waiting for GitHub Raw when a user taps an existing search result.
+    const data=hasDetail&&isCMS ? (fastDetailData(movieId)||await loadData()) : await loadData();
     let output;
     if(externalKind){
       if(hasDetail){
