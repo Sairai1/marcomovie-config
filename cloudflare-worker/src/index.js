@@ -29,7 +29,7 @@ async function handle(request,env={}){
   if(request.method==="OPTIONS")return response({ok:true},200,600);
   if(request.method!=="GET"&&request.method!=="HEAD")return response({code:0,msg:"GET only",list:[]},405,0);
   const u=new URL(request.url);
-  if(u.pathname==="/health")return response({ok:true,name:"MarcoSearch Workers",version:"1.0.3",runtime:"cloudflare"},200,30);
+  if(u.pathname==="/health")return response({ok:true,name:"MarcoSearch Workers",version:"1.0.4",runtime:"cloudflare"},200,30);
   if(u.pathname==="/")return response({code:1,msg:"MarcoSearch CMS",api:"/api.php/provide/vod/",list:[]},200,60);
   if(!["/api.php/provide/vod","/api.php/provide/vod/"].includes(u.pathname))
     return response({code:0,msg:"No route",list:[]},404,0);
