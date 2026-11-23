@@ -180,6 +180,159 @@
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 0
+    },
+    {
+      "key": "vod_haohua",
+      "name": "電影・影集｜豪華資源",
+      "type": 1,
+      "api": "https://www.haohuazy.com/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 0
+    },
+    {
+      "key": "vod_sijiu",
+      "name": "電影・劇集｜四九資源",
+      "type": 1,
+      "api": "https://49zy1.com/api.php/provide/vod/?ac=list",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 0
+    },
+    {
+      "key": "vod_qihu",
+      "name": "電影・動漫｜奇虎資源",
+      "type": 1,
+      "api": "https://caiji.qhzyapi.com/api.php/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 0
+    },
+    {
+      "key": "vod_keke",
+      "name": "電影・影集｜可可資源",
+      "type": 1,
+      "api": "https://kekezy1.com/api.php/provide/vod/?ac=list",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 0
+    },
+    {
+      "key": "vod_huya",
+      "name": "影視・動漫｜虎牙資源",
+      "type": 1,
+      "api": "https://www.huyaapi.com/api.php/provide/vod/from/hym3u8",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 0
+    },
+    {
+      "key": "vod_feisu",
+      "name": "電影・劇集｜飛速資源",
+      "type": 1,
+      "api": "https://www.feisuzyapi.com/api.php/provide/vod/?ac=list",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 0
+    },
+    {
+      "key": "vod_huohu",
+      "name": "電影・影集｜火狐資源",
+      "type": 1,
+      "api": "https://hhzyapi.com/api.php/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 0
+    },
+    {
+      "key": "vod_baidu",
+      "name": "影視・動漫・綜藝｜百度資源",
+      "type": 1,
+      "api": "https://api.apibdzy.com/api.php/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 0
+    },
+    {
+      "key": "vod_jinchan",
+      "name": "電影・劇集｜金蟬資源",
+      "type": 1,
+      "api": "https://zy.jinchancaiji.com/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 0
+    },
+    {
+      "key": "vod_xiaomianyang",
+      "name": "電影・劇集｜小綿羊資源",
+      "type": 1,
+      "api": "https://vs.okcdn100.top/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 0
+    },
+    {
+      "key": "vod_qukan",
+      "name": "電影・劇集｜趣看資源",
+      "type": 1,
+      "api": "https://qkmp4.cn/api.php/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 0
+    },
+    {
+      "key": "vod_hongniu3",
+      "name": "電影・影集｜紅牛備用",
+      "type": 1,
+      "api": "https://www.hongniuzy3.com/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 0
+    },
+    {
+      "key": "vod_yinghua2",
+      "name": "日本動漫｜櫻花備用",
+      "type": 1,
+      "api": "https://api.apiyhzy.com/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 0
+    },
+    {
+      "key": "vod_ffzy2",
+      "name": "電影・劇集｜非凡備用",
+      "type": 1,
+      "api": "https://cj.ffzyapi.com/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 0
+    },
+    {
+      "key": "vod_lzzy2",
+      "name": "電影・劇集｜量子備用",
+      "type": 1,
+      "api": "https://lzizy1.com/api.php/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 0
+    },
+    {
+      "key": "vod_wolong2",
+      "name": "電影・劇集｜臥龍備用",
+      "type": 1,
+      "api": "https://wolongzyw.com/api.php/provide/vod/?ac=list",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 0
+    },
+    {
+      "key": "vod_musicmv",
+      "name": "音樂・MV｜公開影音聚合",
+      "type": 1,
+      "api": "https://mv.wogg.link/mv/vod",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 0
     }
   ],
   "lives": [
@@ -362,6 +515,251 @@
       "name": "專題｜音樂",
       "type": 0,
       "url": "https://iptv-org.github.io/iptv/categories/music.m3u"
+    },
+    {
+      "name": "國家｜印尼 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/id.m3u"
+    },
+    {
+      "name": "國家｜越南 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/vn.m3u"
+    },
+    {
+      "name": "國家｜菲律賓 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/ph.m3u"
+    },
+    {
+      "name": "國家｜柬埔寨 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/kh.m3u"
+    },
+    {
+      "name": "國家｜寮國 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/la.m3u"
+    },
+    {
+      "name": "國家｜緬甸 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/mm.m3u"
+    },
+    {
+      "name": "國家｜巴基斯坦 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/pk.m3u"
+    },
+    {
+      "name": "國家｜孟加拉 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/bd.m3u"
+    },
+    {
+      "name": "國家｜斯里蘭卡 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/lk.m3u"
+    },
+    {
+      "name": "國家｜土耳其 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/tr.m3u"
+    },
+    {
+      "name": "國家｜沙烏地阿拉伯 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/sa.m3u"
+    },
+    {
+      "name": "國家｜卡達 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/qa.m3u"
+    },
+    {
+      "name": "國家｜以色列 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/il.m3u"
+    },
+    {
+      "name": "國家｜荷蘭 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/nl.m3u"
+    },
+    {
+      "name": "國家｜葡萄牙 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/pt.m3u"
+    },
+    {
+      "name": "國家｜波蘭 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/pl.m3u"
+    },
+    {
+      "name": "國家｜瑞典 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/se.m3u"
+    },
+    {
+      "name": "國家｜挪威 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/no.m3u"
+    },
+    {
+      "name": "國家｜丹麥 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/dk.m3u"
+    },
+    {
+      "name": "國家｜芬蘭 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/fi.m3u"
+    },
+    {
+      "name": "國家｜希臘 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/gr.m3u"
+    },
+    {
+      "name": "國家｜阿根廷 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/ar.m3u"
+    },
+    {
+      "name": "國家｜智利 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/cl.m3u"
+    },
+    {
+      "name": "國家｜哥倫比亞 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/co.m3u"
+    },
+    {
+      "name": "國家｜秘魯 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/pe.m3u"
+    },
+    {
+      "name": "國家｜埃及 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/eg.m3u"
+    },
+    {
+      "name": "國家｜奈及利亞 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/ng.m3u"
+    },
+    {
+      "name": "國家｜肯亞 公開頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/countries/ke.m3u"
+    },
+    {
+      "name": "語言｜華語頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/languages/zho.m3u"
+    },
+    {
+      "name": "語言｜粵語頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/languages/yue.m3u"
+    },
+    {
+      "name": "語言｜英語頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/languages/eng.m3u"
+    },
+    {
+      "name": "語言｜日語頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/languages/jpn.m3u"
+    },
+    {
+      "name": "語言｜韓語頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/languages/kor.m3u"
+    },
+    {
+      "name": "語言｜西班牙語頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/languages/spa.m3u"
+    },
+    {
+      "name": "語言｜葡萄牙語頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/languages/por.m3u"
+    },
+    {
+      "name": "語言｜阿拉伯語頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/languages/ara.m3u"
+    },
+    {
+      "name": "語言｜俄語頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/languages/rus.m3u"
+    },
+    {
+      "name": "語言｜印尼語頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/languages/ind.m3u"
+    },
+    {
+      "name": "語言｜越南語頻道",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/languages/vie.m3u"
+    },
+    {
+      "name": "專題｜喜劇",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/categories/comedy.m3u"
+    },
+    {
+      "name": "專題｜教育",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/categories/education.m3u"
+    },
+    {
+      "name": "專題｜科學",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/categories/science.m3u"
+    },
+    {
+      "name": "專題｜旅遊",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/categories/travel.m3u"
+    },
+    {
+      "name": "專題｜美食烹飪",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/categories/cooking.m3u"
+    },
+    {
+      "name": "專題｜親子家庭",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/categories/family.m3u"
+    },
+    {
+      "name": "專題｜文化藝術",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/categories/culture.m3u"
+    },
+    {
+      "name": "專題｜商業財經",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/categories/business.m3u"
+    },
+    {
+      "name": "專題｜氣象天氣",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/categories/weather.m3u"
+    },
+    {
+      "name": "全球｜依語言分組",
+      "type": 0,
+      "url": "https://iptv-org.github.io/iptv/index.language.m3u"
     }
   ],
   "parses": [],
