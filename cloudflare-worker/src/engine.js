@@ -209,6 +209,19 @@ export function decodeId(encoded){
       &&typeof x.id==="string"&&x.id.length<512);
   }catch{return [];}
 }
+
+// Skip two GitHub Raw configuration requests on cold detail page opens.
+// Search still loads live config. Details only need the CMS sites referenced
+// in their existing composite ID, which are bundled in snapshotSites.
+export function fastDetailData(encoded){
+  const refs=decodeId(encoded);
+  if(!refs.length)return null;
+  const active=configMemo?.data?.sites||[];
+  const byKey=new Map(active.map(x=>[x.key,x]));
+  for(const s of snapshotSites)if(!byKey.has(s.key))byKey.set(s.key,s);
+  if(!refs.every(ref=>byKey.has(ref.k)))return null;
+  return {sites:[...byKey.values()]};
+}
 export function mergeResults(matches,term,canonical,max=100){
   const groups=new Map(),wanted=normal(term);
   for(const {site,item} of matches){
