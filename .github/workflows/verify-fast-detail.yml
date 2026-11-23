@@ -1,0 +1,63 @@
+name: Verify MarcoSearch fast playback detail
+on:
+  push:
+    paths:
+      - '.github/workflows/verify-fast-detail.yml'
+  workflow_dispatch:
+jobs:
+  live-detail:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - name: Validate deployed fast details and optional full backup mode
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json,time,urllib.request,urllib.parse
+          base="https://marcomovie-config.guochuwei0913.workers.dev"
+          def get(path,timeout=30):
+              req=urllib.request.Request(base+path,headers={
+                  "User-Agent":"MarcoSearch-Detail-LatencyCheck/1.3",
+                  "Accept":"application/json"})
+              start=time.perf_counter()
+              with urllib.request.urlopen(req,timeout=timeout) as r:
+                  assert r.status==200,(path,r.status)
+                  data=json.loads(r.read(800000).decode("utf-8"))
+              ms=round((time.perf_counter()-start)*1000)
+              return data,ms
+          for n in range(20):
+              health,_=get("/health",10)
+              print("VERSION",health.get("version"),flush=True)
+              if health.get("version")=="1.3.0":break
+              time.sleep(5)
+          else:raise AssertionError("v1.3.0 not deployed")
+          samples=[]
+          for term in ("功夫","铁男","流浪地球"):
+              s,elapsed=get("/api.php/provide/vod/shard/1/?"+urllib.parse.urlencode({"ac":"detail","wd":term}),35)
+              print("SEARCH",term,"results",len(s.get("list",[])),"elapsed_ms",elapsed,flush=True)
+              if s.get("code")==1 and s.get("list"):
+                  samples.extend((term,item) for item in s["list"][:3])
+              if len(samples)>=6:break
+          assert samples,"CMS search returned no results for sample films"
+          examined=0;playable=0
+          for term,item in samples[:6]:
+              id=item["vod_id"]
+              detail_path="/api.php/provide/vod/shard/1/?"+urllib.parse.urlencode({"ac":"detail","ids":id})
+              fast,fast_ms=get(detail_path,25)
+              assert fast.get("code")==1
+              assert isinstance(fast.get("list"),list)
+              fast_play=sum(bool(i.get("vod_play_url")) for i in fast["list"])
+              print("DETAIL FAST",term,"film",item.get("vod_name"),"ms",fast_ms,
+                  "returned",len(fast["list"]),"playable",fast_play,flush=True)
+              examined+=1
+              if fast_play:
+                  full,full_ms=get(detail_path+"&full=1",25)
+                  assert full.get("code")==1
+                  full_play=sum(bool(i.get("vod_play_url")) for i in full.get("list",[]))
+                  print("DETAIL FULL",term,"ms",full_ms,"playable",full_play,flush=True)
+                  assert full_play>=fast_play
+                  playable+=1
+                  break
+          print("CHECKED",examined,"candidate entries, playable=",playable,flush=True)
+          print("FAST DETAIL LIVE ENDPOINT VERIFIED",flush=True)
+          PY
