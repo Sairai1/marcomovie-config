@@ -114,3 +114,55 @@ test("Worker health requires no configured CMS or network",async()=>{
  assert.equal(r.status,200);
  assert.equal((await r.json()).ok,true);
 });
+
+test("Reject CMS home feeds that ignore search terms",async()=>{
+ const source=site("first");
+ let count=0;
+ const mock=async(url)=>{
+   count++;
+   if(new URL(url).searchParams.get("ac")==="detail")
+     return ok({list:[{vod_id:1,vod_name:"NBA比赛"},{vod_id:2,vod_name:"新闻联播"}]});
+   return ok({list:[{vod_id:3,vod_name:"豚鼠：血肉之花"}]});
+ };
+ const {cmsSearch}=await import("../src/engine.js");
+ const result=await cmsSearch(source,["血肉之花"],mock);
+ assert.equal(count,2);
+ assert.deepEqual(result.items.map(x=>x.vod_name),["豚鼠：血肉之花"]);
+});
+test("Reject unrelated results even when both CMS strategies return a feed",async()=>{
+ const {cmsSearch}=await import("../src/engine.js");
+ const mock=async()=>ok({list:[{vod_id:1,vod_name:"篮球赛"},{vod_id:2,vod_name:"电视剧第二季"}]});
+ const r=await cmsSearch(site("first"),["恶魔实验"],mock);
+ assert.equal(r.items.length,0);
+ assert.equal(r.status,"ignored_keyword");
+});
+test("Series title lookup uses Japanese film variants and excludes unrelated guinea pigs",async()=>{
+ const {cmsSearch}=await import("../src/engine.js");
+ const terms=expandTerms("豚鼠",new Map());
+ assert.deepEqual(terms,["豚鼠","Guinea Pig","ギニーピッグ"]);
+ let count=0;
+ const mock=async (url)=>{
+   count++;
+   const wd=new URL(url).searchParams.get("wd");
+   if(wd==="豚鼠")return ok({list:[
+     {vod_id:10,vod_name:"豚鼠特攻队"},
+     {vod_id:11,vod_name:"美国豚鼠3"},
+     {vod_id:12,vod_name:"豚鼠：血肉之花"},
+     {vod_id:13,vod_name:"豚鼠系列之6：圣母机器人[电影解说]"}
+   ]});
+   return ok({list:[{vod_id:20,vod_name:"Guinea Pig: Devil's Experiment"}]});
+ };
+ const found=await cmsSearch(site("first"),terms,mock);
+ assert.equal(count,2);
+ assert.deepEqual(found.items.map(x=>x.vod_id),["12","20"]);
+});
+test("Search results omit full upstream content and raw playback data",()=>{
+ const docs=mergeResults([{
+   site:sources[0],item:{vod_id:"1",vod_name:"恶魔实验",vod_content:"HUGE",
+     vod_play_url:"mp4$https://example.org",vod_down_url:"mp4$https://example.org"}
+ }],"恶魔实验",new Map());
+ assert.equal(docs.length,1);
+ assert.equal(docs[0].vod_content,undefined);
+ assert.equal(docs[0].vod_play_url,undefined);
+ assert.equal(docs[0].vod_down_url,undefined);
+});
