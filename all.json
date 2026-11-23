@@ -43,7 +43,7 @@
       "type": 1,
       "api": "https://api.wsyzy.net/api.php/provide/vod",
       "searchable": 1,
-      "quickSearch": 0,
+      "quickSearch": 1,
       "filterable": 1,
       "categories": [
         "4K电影",
@@ -66,7 +66,7 @@
       "type": 1,
       "api": "https://api.tiankongapi.com/api.php/provide/vod/",
       "searchable": 1,
-      "quickSearch": 0,
+      "quickSearch": 1,
       "filterable": 1,
       "categories": [
         "电影",
@@ -90,7 +90,7 @@
       "type": 1,
       "api": "https://api.kuaifan.tv/api.php/provide/vod",
       "searchable": 1,
-      "quickSearch": 0,
+      "quickSearch": 1,
       "filterable": 0
     },
     {
@@ -99,7 +99,7 @@
       "type": 1,
       "api": "https://www.ikunzy.com/api.php/provide/vod/",
       "searchable": 1,
-      "quickSearch": 0,
+      "quickSearch": 1,
       "filterable": 0
     },
     {
@@ -108,7 +108,7 @@
       "type": 1,
       "api": "https://taopianapi.com/cjapi/mc/vod/json.html",
       "searchable": 1,
-      "quickSearch": 0,
+      "quickSearch": 1,
       "filterable": 0
     },
     {
@@ -117,7 +117,7 @@
       "type": 1,
       "api": "https://www.39kan.com/api.php/provide/vod/",
       "searchable": 1,
-      "quickSearch": 0,
+      "quickSearch": 1,
       "filterable": 0
     },
     {
