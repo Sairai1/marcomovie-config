@@ -18,7 +18,7 @@ export function safeSite(site){
       &&u.hostname.includes(".")&&!/^(?:\d+\.){3}\d+$/.test(u.hostname)
       &&/^[a-z0-9.-]+$/i.test(u.hostname)
       &&!/(^|\.)(localhost|local|internal|test|invalid)$/.test(u.hostname)
-      &&u.hostname!=="raw.githubusercontent.com"&&site.key!=="marco_search";
+      &&u.hostname!=="raw.githubusercontent.com"&&!/^marco_(?:search|discover)(?:_|$)/.test(String(site.key));
   }catch{return false;}
 }
 function timeoutPromise(ms){
