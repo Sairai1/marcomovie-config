@@ -32,7 +32,7 @@ jobs:
           for attempt in range(12):
             try:
               h=fetch(base+'/health',10)
-              if h['version']=='1.2.1':break
+              if h['version']=='1.3.0':break
             except Exception as exc:print('health error:',exc,flush=True)
             time.sleep(5)
           else:raise AssertionError('new worker version not online')
