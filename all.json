@@ -2,6 +2,15 @@
   "spider": "",
   "sites": [
     {
+      "key": "marco_search",
+      "name": "🔎 MarcoSearch｜跨片源聚合搜尋",
+      "type": 1,
+      "api": "https://marcomovie-config.guochuwei0913.workers.dev/api.php/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    },
+    {
       "key": "vod_360",
       "name": "電影・劇集・動漫｜360資源",
       "type": 1,
