@@ -49,7 +49,7 @@ async function handle(request,env={}){
   if(request.method!=="GET"&&request.method!=="HEAD")return response({code:0,msg:"GET only",list:[]},405,0);
   const u=new URL(request.url),path=u.pathname.replace(/\/$/,"");
   if(path==="/health")return response({ok:true,name:"MarcoSearch Workers",
-    version:"1.2.0",runtime:"cloudflare",
+    version:"1.2.1",runtime:"cloudflare",
     engines:["cms-aggregate","cms-shard-1","cms-shard-2","cms-shard-3",
       "wikidata","apple-itunes","tvmaze","tmdb-optional",
       "internet-archive","pansou-optional","watchmode-optional"]},200,30);
