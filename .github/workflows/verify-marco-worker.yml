@@ -16,7 +16,7 @@ jobs:
           python3 - <<'PY'
           import json, urllib.request, urllib.parse, urllib.error, time
           base='https://marcomovie-config.guochuwei0913.workers.dev'
-          urls=[base+'/health',base+'/api.php/provide/vod/?'+urllib.parse.urlencode({'ac':'detail','wd':'Tetsuo'})]
+          urls=[base+'/health',base+'/api.php/provide/vod/?'+urllib.parse.urlencode({'ac':'detail','wd':'功夫'})]
           for attempt in range(1,9):
               print('Attempt',attempt,'of 8',flush=True)
               try:
@@ -33,11 +33,12 @@ jobs:
                   health,search=replies
                   assert health.get('ok') is True
                   assert health.get('name')=='MarcoSearch Workers'
-                  assert health.get('version')=='1.0.2', 'Worker updated build not deployed yet'
+                  assert health.get('version')=='1.0.3', 'Worker updated build not deployed yet'
                   assert search.get('code')==1, 'search response not successful'
                   assert isinstance(search.get('list'),list)
                   assert search.get('search_info',{}).get('scanned',0)>=1, 'no upstream sources scanned'
                   assert isinstance(search.get('search_info',{}).get('source_diagnostics'),list), 'no diagnostics'
+                  assert any(x.get('status')=='ok' for x in search['search_info']['source_diagnostics']), 'no CMS sources responded successfully'
                   print('WORKER LIVE SEARCH VERIFIED',flush=True)
                   break
               except Exception as exc:
