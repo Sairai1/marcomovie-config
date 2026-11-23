@@ -15,6 +15,16 @@ jobs:
           python3 - <<'PY'
           import urllib.request, urllib.parse, urllib.error, json, time, re
           base='https://marcomovie-config.guochuwei0913.workers.dev/api.php/provide/vod/'
+          # Do not audit the old deployment while Cloudflare automatic deployment catches up.
+          for attempt in range(18):
+              req=urllib.request.Request('https://marcomovie-config.guochuwei0913.workers.dev/health',headers={'User-Agent':'MarcoSearch-CoverageAudit/1.0'})
+              try:
+                  with urllib.request.urlopen(req,timeout=10) as h: version=json.loads(h.read().decode()).get('version')
+                  print('DEPLOY VERSION',version,flush=True)
+                  if version=='1.0.4': break
+              except Exception as e: print('HEALTH',str(e),flush=True)
+              time.sleep(5)
+          else: raise RuntimeError('Cloudflare worker v1.0.4 not deployed')
           titles=['豚鼠','恶魔实验','血肉之花','他不会死','下水道的美人鱼','圣母机器人','恶魔女医生']
           aliases=['Devil\'s Experiment','Flower of Flesh and Blood','He Never Dies','Mermaid in a Manhole','Android of Notre Dame','Devil Woman Doctor']
           results={}
@@ -33,13 +43,14 @@ jobs:
                       print('PAGE',repr(title),page,'items=',len(items),'scanned=',info.get('scanned'),'source_status=',{k:v for k,v in status.items()},flush=True)
                   except Exception as e: print('FAILED',repr(title),page,type(e).__name__,str(e),flush=True)
               results[title]={'scanned':scanned,'hits':hits}
-              print('TITLE',repr(title),'total=',len(hits),'sample=',[x['name'] for x in hits[:12]],flush=True)
+              print('TITLE',repr(title),'total=',len(hits),'sample=',[x['name'] for x in hits[:40]],flush=True)
           for title in aliases:
               url=base+'?'+urllib.parse.urlencode({'ac':'detail','wd':title,'pg':1})
               try:
-                  with urllib.request.urlopen(url,timeout=27) as r: out=json.loads(r.read(1300000).decode())
+                  req=urllib.request.Request(url,headers={'User-Agent':'MarcoSearch-CoverageAudit/1.0','Accept':'application/json'})
+                  with urllib.request.urlopen(req,timeout=27) as r: out=json.loads(r.read(1300000).decode())
                   print('ALIAS',repr(title),'hits=',len(out.get('list',[])),'names=',[x.get('vod_name') for x in out.get('list',[])[:10]],flush=True)
               except Exception as e: print('ALIAS FAILED',repr(title),str(e),flush=True)
           print('COVERAGE SUMMARY',flush=True)
-          for k,v in results.items(): print(repr(k),'seen',len(v['hits']),'from',v['scanned'],'site queries',flush=True)
+          for k,v in results.items(): print(repr(k),'seen',len(v['hits']),'from',v['scanned'],'site queries','ALL_FILM_NAMES',sorted(set(x['name'] for x in v['hits'])),flush=True)
           PY
