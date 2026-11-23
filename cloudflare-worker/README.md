@@ -2,6 +2,33 @@
 
 本專案是真正的多來源 CMS 實時搜尋引擎，不是只有電影片名規則。可作為 Marco Movie iOS 中一個額外的 TVBox CMS 站點，與原有電影／動漫／直播配置共存。
 
+## v1.1：新增的四个独立搜索入口
+
+2026-11-23 已部署到 `https://marcomovie-config.guochuwei0913.workers.dev`，并通过 GitHub Actions 对公网真实接口测试。
+
+| 名称 | TVBox CMS 接口 | 结果类型 |
+| --- | --- | --- |
+| MarcoSearch 1 | `/api.php/provide/vod/shard/1/` | 17 个原有 CMS 的**实时检索结果** |
+| MarcoSearch 2 | `/api.php/provide/vod/shard/2/` | 17 个原有 CMS 的实时检索结果 |
+| MarcoSearch 3 | `/api.php/provide/vod/shard/3/` | 17 个原有 CMS 的实时检索结果 |
+| MarcoDiscover | `/api.php/discover/vod/` | Wikidata、Apple iTunes 和 TVmaze 的**资料检索**，TMDB 可选；**无内置播放** |
+| 原版 MarcoSearch | `/api.php/provide/vod/` | 旧版来源分页检索，保留兼容 |
+
+不同于原版按 `pg` 轮询 51 个来源，新增的三条 CMS 入口在 iOS 应用的全局搜索里可作为**三个独立站点**被调用，实现一次全局搜索覆盖 51 个候选 CMS 来源；如果客户端只搜索当前选中的站点，仍需勾选全部三项。
+
+MarcoDiscover 独立查询外部影视资料库，不复用 51 个 CMS 的缓存结果，也不将静态 `cult-films.json` 中的片名伪装成外部检索命中。只有在线服务返回的条目才会显示。公开资料不证明作品具备正版播放权、完整版本或现成视频链接。Apple API 可能因为访问频率返回 429，其他引擎仍能独立运行。
+
+**验证：**
+
+- `/health` 应显示版本 `1.1.0`。
+- `/api.php/provide/vod/shard/1/?ac=detail&wd=铁男`。
+- `/api.php/provide/vod/shard/2/?ac=detail&wd=铁男`。
+- `/api.php/provide/vod/shard/3/?ac=detail&wd=铁男`。
+- `/api.php/discover/vod/?ac=detail&wd=Guinea%20Pig`。
+
+所有这些入口都遵循 TVBox 风格的 `ac=detail&wd=` 或 `ac=videolist&wd=` 查询格式。资料库结果的 `vod_play_url` 保持空值，明确与影视播放源分开。
+
+
 ## 免費額度限制與技術設計
 
 - 官方 Free 額度（2026-11）：100,000 次 Worker 請求／日，50 次外部子請求／次，6 個同時對外連線。參考 https://developers.cloudflare.com/workers/platform/limits/
