@@ -42,7 +42,7 @@ async function loadJson(url,fetcher){
 }
 export async function loadData(fetcher=fetch,configUrl=CONFIG_URL,cultUrl=CULT_URL){
   const [cfg,cult]=await Promise.all([loadJson(configUrl,fetcher),loadJson(cultUrl,fetcher).catch(()=>({films:[]}))]);
-  return {sites:(cfg.sites||[]).filter(safeSource),films:cult.films||[]};
+  return {sites:(cfg.sites||[]).filter(s=>s.key!=="marco_search"&&safeSource(s)),films:cult.films||[]};
 }
 function variants(f){return [f.title_cn,f.title_en,f.title_ja,...(f.aliases||[])].filter(x=>typeof x==="string"&&x.trim());}
 export function expandQuery(term,films,extra=[]){
