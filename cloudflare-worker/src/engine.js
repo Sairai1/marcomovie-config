@@ -137,6 +137,14 @@ function titleRelevant(item,terms){
   const title=normal([item.vod_name,item.vod_sub,item.vod_en].filter(Boolean).join(" "));
   const rawTitle=String(item.vod_name||"");
   if(!title)return false;
+  const requestedJapaneseGuinea=terms.some(t=>{
+    const n=normal(t);
+    return ["豚鼠","豚鼠系列","豚鼠全系列","豚鼠六部曲","guineapig","ギニーピッグ"].includes(n)
+      ||snapshotFilms.slice(0,6).some(f=>[f.title_cn,f.title_en,f.title_ja,...(f.aliases||[])].some(a=>normal(a)===n));
+  });
+  // American Guinea Pig and Slaughter Special are different works, not a
+  // main-film match; never count them toward the original Japanese six.
+  if(requestedJapaneseGuinea&&/(?:美国豚鼠|美國豚鼠|americanguineapig|豚鼠特攻队|豚鼠特攻隊|gforce|惨杀特别篇|慘殺特別篇|slaughterspecial)/iu.test(normal(rawTitle)))return false;
   if(/(?:电影解说|電影解說|影视解说|影視解說|影评|影評)/u.test(rawTitle)
     &&!terms.some(t=>/解说|解說|影评|影評/u.test(t)))return false;
   const series=terms.some(t=>/^(豚鼠|豚鼠系列|豚鼠六部曲|豚鼠全系列|guineapig|guineapigseries|ギニーピッグ)$/u.test(normal(t)));
