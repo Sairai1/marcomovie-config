@@ -27,16 +27,17 @@ jobs:
                       with urllib.request.urlopen(req,timeout=40) as resp:
                           status=resp.status
                           body=resp.read(150000).decode('utf-8','replace')
-                      print('HTTP',status,'BODY',body[:700],flush=True)
+                      print('HTTP',status,'BODY',body[:8000],flush=True)
                       assert status==200
                       replies.append(json.loads(body))
                   health,search=replies
                   assert health.get('ok') is True
                   assert health.get('name')=='MarcoSearch Workers'
-                  assert health.get('version')=='1.0.1', 'Worker updated build not deployed yet'
+                  assert health.get('version')=='1.0.2', 'Worker updated build not deployed yet'
                   assert search.get('code')==1, 'search response not successful'
                   assert isinstance(search.get('list'),list)
                   assert search.get('search_info',{}).get('scanned',0)>=1, 'no upstream sources scanned'
+                  assert isinstance(search.get('search_info',{}).get('source_diagnostics'),list), 'no diagnostics'
                   print('WORKER LIVE SEARCH VERIFIED',flush=True)
                   break
               except Exception as exc:
