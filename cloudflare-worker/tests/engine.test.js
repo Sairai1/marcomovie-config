@@ -249,3 +249,110 @@ test("Independent discovery engine has TVBox-compatible home and search",async()
  assert.equal(r.status,200);
  assert.match((await r.json()).msg,/非内置播放|无内置播放/);
 });
+
+
+test("Internet Archive movie search is a genuinely independent provider and never fabricates playback",async()=>{
+ const {archiveSearch,archiveDetail}=await import("../src/external-engines.js");
+ let requests=0;
+ const mocked=async (url)=>{
+   ++requests;
+   const u=new URL(url);
+   if(u.pathname==="/advancedsearch.php"){
+     assert.equal(u.hostname,"archive.org");
+     assert.match(u.searchParams.get("q"),/mediatype:movies/);
+     return ok({response:{docs:[
+       {identifier:"night-of-the-living-dead-1968",title:"Night of the Living Dead (1968)",year:"1968"},
+       {identifier:"cats-video",title:"Cute Cat Video"}]}});
+   }
+   if(u.pathname.startsWith("/metadata/"))return ok({metadata:{
+     mediatype:"movies",title:"Night of the Living Dead (1968)",date:"1968",
+     description:"Classic horror film",licenseurl:"https://creativecommons.org/publicdomain/mark/1.0/"}});
+   throw Error("unexpected "+url);
+ };
+ const data=await archiveSearch("Night of the Living Dead",new Map(),{fetcher:mocked});
+ assert.equal(data.code,1);
+ assert.equal(data.list.length,1);
+ assert.equal(data.list[0].vod_play_url,"");
+ assert.equal(data.search_info.kind,"archive_item");
+ assert.match(data.list[0].vod_remarks,/Internet Archive/);
+ const detail=await archiveDetail(data.list[0].vod_id,{fetcher:mocked});
+ assert.equal(detail.length,1);
+ assert.equal(detail[0].vod_play_url,"");
+ assert.match(detail[0].vod_content,/archive.org\/details/);
+ assert.equal(requests,2);
+});
+test("Optional PanSou adapter searches real self-hosted /api/search and retains safe share page on details",async()=>{
+ const {panSouSearch,panSouDetail}=await import("../src/external-engines.js");
+ const absent=await panSouSearch("铁男","");
+ assert.equal(absent.configured,false);
+ assert.deepEqual(absent.list,[]);
+ let requested=0;
+ const mock=async (url,options)=>{
+   requested++;
+   assert.equal(options.redirect,"manual");
+   const u=new URL(url);
+   assert.equal(u.pathname,"/api/search");
+   assert.equal(u.searchParams.get("kw"),"铁男");
+   return ok({merged_by_type:{quark:[
+     {url:"https://pan.quark.cn/s/abcdef",note:"铁男 1989"},
+     {url:"https://127.0.0.1/file",note:"铁男 不安全链接"},
+     {url:"http://pan.baidu.com/s/abc",note:"铁男 不安全链接"},
+     {url:"https://pan.quark.cn/s/wrong",note:"吉卜力电影"}]}});
+ };
+ const result=await panSouSearch("铁男","https://private.example.org","secret",{fetcher:mock});
+ assert.equal(requested,1);
+ assert.equal(result.list.length,1);
+ assert.equal(result.list[0].vod_play_url,"");
+ const details=panSouDetail(result.list[0].vod_id);
+ assert.equal(details[0].vod_play_url,"");
+ assert.match(details[0].vod_content,/https:\/\/pan.quark.cn\/s\/abcdef/);
+ assert.deepEqual(panSouDetail("ps2_NOT_VALID"),[]);
+});
+test("Optional Watchmode adapter never calls unconfigured service or leaks key to results",async()=>{
+ const {watchmodeSearch,watchmodeDetail}=await import("../src/external-engines.js");
+ const absent=await watchmodeSearch("Matrix","");
+ assert.equal(absent.configured,false);
+ let calls=0;
+ const mocked=async url=>{
+   calls++;
+   const u=new URL(url);
+   assert.equal(u.searchParams.get("apiKey"),"my-secret-key");
+   if(u.pathname.endsWith("/search/"))return ok({title_results:[
+     {id:10,name:"The Matrix",type:"movie",year:1999},
+     {id:11,name:"An unrelated show",type:"tv_series"}]});
+   if(u.pathname.includes("/sources/"))return ok([
+     {name:"Legal Cinema",region:"US",type:"rent",web_url:"https://cinema.example.com/matrix"},
+     {name:"Other region",region:"FR",type:"subscription",web_url:"https://cinema.example.com/fr"}]);
+   throw Error("unexpected");
+ };
+ const out=await watchmodeSearch("The Matrix","my-secret-key",{fetcher:mocked});
+ assert.equal(out.list.length,1);
+ assert(!JSON.stringify(out).includes("my-secret-key"));
+ assert.equal(out.list[0].vod_play_url,"");
+ const det=await watchmodeDetail(out.list[0].vod_id,"my-secret-key","US",{fetcher:mocked});
+ assert.equal(det.length,1);
+ assert.match(det[0].vod_content,/Legal Cinema/);
+ assert(!det[0].vod_content.includes("Other region"));
+ assert.equal(calls,2);
+});
+test("External search routes accept MacCMS ac/detail and truthfully show unconfigured adapters",async()=>{
+ const original=globalThis.fetch;
+ globalThis.fetch=async url=>{
+   const u=new URL(url);
+   if(u.pathname.endsWith("/all.json"))return ok({sites:[]});
+   if(u.pathname.endsWith("/cult-films.json"))return ok({films:[]});
+   if(u.hostname==="archive.org"&&u.pathname.endsWith("advancedsearch.php"))
+     return ok({response:{docs:[{identifier:"the-matrix-documentary",title:"The Matrix Documentary"}]}});
+   throw Error("unknown host "+url);
+ };
+ try{
+   for(const name of ["archive","pansou","watchmode"]){
+     const r=await worker.fetch(new Request("https://unit.test/api.php/"+name+"/vod/?ac=detail&wd=Matrix"));
+     assert.equal(r.status,200);
+     const d=await r.json();
+     assert.equal(d.code,1);
+     if(name==="archive")assert.equal(d.list.length,1);
+     else{assert.equal(d.list.length,0);assert.equal(d.search_info.status,"not_configured");}
+   }
+ }finally{globalThis.fetch=original;}
+});
