@@ -116,3 +116,18 @@ MarcoDiscover 独立查询外部影视资料库，不复用 51 个 CMS 的缓存
 於 Cloudflare Worker → Settings → Variables and Secrets 設定對應 Secret/Variable；確認來源實際返回可用的、適當授權的結果後，才加入 all.json。不要把任何 Secret 寫到公開配置。
 
 Worker /health 版本：1.2.0。正式訂閱目前 57 個影視與搜尋入口，保留原 85 組直播。57 個入口並不代表 57 個全新片庫，之前的 51 個 CMS 仍是原有來源。
+
+## v1.3 — 點開影片與首次播放加速
+
+**2026-11-23** 針對 iOS Marco Movie 使用者點擊 MarcoSearch 影片後等待詳情及首條播放線路的問題：
+
+- 舊版 detail() 對最多五個 CMS 來源做 Promise.all，需等最慢一站（每站最大 3,400ms）才能返回，造成首次進入播放器等待。
+- 新版優先返回第一條有實際集數／播放網址的線路；稍等預設 260ms 收集其他快速備援，之後取消尚未完成的慢來源請求。若沒有任一可播放線路，仍等待全部來源到逾時，以降低誤判空片源。
+- 冷啟動 CMS 詳情會先使用 Worker 內建的來源快照，不必先向 GitHub Raw 讀取 all.json 與 Cult 片單。未知來源仍自動使用動態配置回退。一般影視搜尋仍讀最新配置。
+- 詳情快取在 MarcoSearch 原版與 1／2／3 分組之間共用；同一個 composite vod_id 可復用已取回的結果。
+- 選擇性除錯模式：在 detail URL 加上 `full=1`，會等待所有來源並整合完整備援線路（比快速模式更慢）。預設 Marco Movie 不必修改。
+- Cloudflare Worker vars: DETAIL_BACKUP_GRACE_MS=260（0–800ms），DETAIL_TIMEOUT_MS=3400（500–4500ms）。短 grace 令首播更快，但備援線路可能較少；完整模式用於排除特定片源問題。
+- 假冒或空白播放網址不應觸發提前返回。已添加自動測試涵蓋早返回、有備援、無播放、全來源模式及冷詳情不讀 GitHub。
+- **限制：** 本加速只縮短詳情 API 的等待時間，並不代理或加速第三方 M3U8/MP4 影音內容；若開始播放後仍緩衝，應切換不同播放線路或合法串流平台。
+
+健康檢查 `/health` 的新版本：1.3.0。直播配置及原訂閱 URL 保持不變。
