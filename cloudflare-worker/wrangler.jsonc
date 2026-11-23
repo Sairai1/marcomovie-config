@@ -1,0 +1,11 @@
+{
+  "name": "marco-search-sairai",
+  "main": "src/index.js",
+  "compatibility_date": "2026-11-23",
+  "workers_dev": true,
+  "vars": {
+    "SEARCH_SOURCES": "16",
+    "SEARCH_CONCURRENCY": "4",
+    "UPSTREAM_TIMEOUT_MS": "2400"
+  }
+}
