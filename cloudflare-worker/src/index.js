@@ -1,5 +1,6 @@
 import {loadData,search,details,home} from "./engine.js";
 import {discoverSearch,discoverDetail} from "./discovery.js";
+import {archiveSearch,archiveDetail,panSouSearch,panSouDetail,watchmodeSearch,watchmodeDetail,externalHome} from "./external-engines.js";
 
 const memory=new Map();
 function response(data,status=200,ttl=30){
@@ -48,15 +49,21 @@ async function handle(request,env={}){
   if(request.method!=="GET"&&request.method!=="HEAD")return response({code:0,msg:"GET only",list:[]},405,0);
   const u=new URL(request.url),path=u.pathname.replace(/\/$/,"");
   if(path==="/health")return response({ok:true,name:"MarcoSearch Workers",
-    version:"1.1.0",runtime:"cloudflare",
+    version:"1.2.0",runtime:"cloudflare",
     engines:["cms-aggregate","cms-shard-1","cms-shard-2","cms-shard-3",
-      "wikidata","apple-itunes","tvmaze","tmdb-optional"]},200,30);
+      "wikidata","apple-itunes","tvmaze","tmdb-optional",
+      "internet-archive","pansou-optional","watchmode-optional"]},200,30);
   if(path==="")return response({code:1,msg:"MarcoSearch CMS",
     api:"/api.php/provide/vod/",list:[]},200,60);
   const shardMatch=path.match(/^\/api\.php\/provide\/vod\/shard\/([123])$/);
   const isDiscover=path==="/api.php/discover/vod";
+  const externalKind=({
+    "/api.php/archive/vod":"archive",
+    "/api.php/pansou/vod":"pansou",
+    "/api.php/watchmode/vod":"watchmode"
+  })[path]||"";
   const isCMS=path==="/api.php/provide/vod"||!!shardMatch;
-  if(!isCMS&&!isDiscover)return response({code:0,msg:"No route",list:[]},404,0);
+  if(!isCMS&&!isDiscover&&!externalKind)return response({code:0,msg:"No route",list:[]},404,0);
 
   const ac=u.searchParams.get("ac")||"";
   const keyword=String(u.searchParams.get("wd")||"").trim().slice(0,90);
@@ -65,16 +72,29 @@ async function handle(request,env={}){
   const shard=shardMatch?Number(shardMatch[1]):0;
   const hasDetail=!!movieId&&(ac==="detail"||ac==="videolist");
   const hasSearch=!!keyword&&["detail","videolist","list"].includes(ac);
-  if(!hasDetail&&!hasSearch)return response(isDiscover?discoveryHome():home(),200,120);
+  if(!hasDetail&&!hasSearch)return response(externalKind?externalHome(externalKind):
+    isDiscover?discoveryHome():home(),200,120);
 
-  const key=[isDiscover?"discover":"cms",shard,
+  const key=[externalKind|| (isDiscover?"discover":"cms"),shard,
     hasDetail?"detail:"+movieId:"q:"+keyword.toLowerCase()+":"+pg].join(":");
   const hit=fromMemory(key);
   if(hit)return response(hit,200,20);
   try{
     const data=await loadData();
     let output;
-    if(isDiscover){
+    if(externalKind){
+      if(hasDetail){
+        const list=externalKind==="archive"?await archiveDetail(movieId):
+          externalKind==="pansou"?panSouDetail(movieId):
+          await watchmodeDetail(movieId,env.WATCHMODE_API_KEY||"",env.WATCHMODE_REGIONS||"US");
+        output=detailsResponse(list);
+      }else{
+        output=externalKind==="archive"?await archiveSearch(keyword,data.aliases):
+          externalKind==="pansou"?await panSouSearch(keyword,env.PANSOU_API_URL||"",env.PANSOU_BEARER_TOKEN||""):
+          await watchmodeSearch(keyword,env.WATCHMODE_API_KEY||"");
+        if(externalKind==="watchmode"&&output.configured)toMemory(key,output,360000);
+      }
+    }else if(isDiscover){
       if(hasDetail){
         const list=await discoverDetail(movieId,fetch,env.TMDB_READ_ACCESS_TOKEN||"");
         output=detailsResponse(list);
@@ -100,7 +120,7 @@ async function handle(request,env={}){
       });
       output=searchResponse(result,data,shard);
     }
-    toMemory(key,output,hasDetail?180000:75000);
+    toMemory(key,output,hasDetail?180000:externalKind==="watchmode"?360000:75000);
     return response(output,200,20);
   }catch(err){
     console.error("MarcoSearch upstream failure:",String(err?.message||"unknown").slice(0,180));
